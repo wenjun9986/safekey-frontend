@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "SafeKey: Password Manager",
+  "version": "1.0",
+  "description": "An Integrated Password Manager",
+  "author": "SafeKey",
+  "permissions": [
+    "tabs",
+    "storage",
+    "unlimitedStorage",
+    "clipboardRead",
+    "clipboardWrite",
+    "idle"
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "images/icon16.png",
+      "32": "images/icon32.png",
+      "48": "images/icon48.png",
+      "96": "images/icon96.png",
+      "128": "images/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "images/icon16.png",
+    "32": "images/icon32.png",
+    "48": "images/icon48.png",
+    "96": "images/icon96.png",
+    "128": "images/icon128.png"
+  }
+}
+
