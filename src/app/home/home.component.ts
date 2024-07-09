@@ -7,7 +7,7 @@ import { FormBuilder, Validators } from "@angular/forms";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  formGroup = this.formBuilder.group({
+  loginForm = this.formBuilder.group({
     email:["", [Validators.required, Validators.email]]
   });
     constructor(
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   }
 
   submit(){
-      console.log(this.formGroup.value);
+      console.log(this.loginForm.value);
   }
 
 

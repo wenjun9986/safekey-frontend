@@ -2,29 +2,20 @@
   <div class="content login-page">
     <div class="logo-image"></div>
     <p class="lead text-center">Log in or create a new account</p>
-    <form [formGroup]="formGroup" (ngSubmit)="submit()">
-    <div class="box">
-      <div class="box-content">
-        <div class="box-content-row" appBoxRow>
-          <label for="email">Email Address</label>
-          <input id="email" type="email" formControlName="email" appInputVerbatim="false" />
-        </div>
-        <div class="remember-email-check">
-          <input
-            id="rememberEmail"
-            type="checkbox"
-            name="rememberEmail"
-            formControlName="rememberEmail"
-          />
-          <label for="rememberEmail">Remember email</label>
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+      <div class="box">
+        <div class="box-content">
+          <div class="box-content-row">
+            <label for="email">Email Address</label>
+            <input id="email" type="email" formControlName="email"/>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="box">
-      <button type="submit" class="btn primary block">
-        <b>Continue</b>
-      </button>
-    </div>
+      <div class="box">
+        <button type="submit" class="btn primary block">
+          <b>Continue</b>
+        </button>
+      </div>
     </form>
     <p class="createAccountLink">
       New Around Here?
@@ -34,3 +25,5 @@
     </p>
   </div>
 </div>
+
+
