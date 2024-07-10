@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,8 @@ export class LoginComponent {
   showPassword = false;
   constructor(
       private fb: FormBuilder,
-      private route: ActivatedRoute
+      private route: ActivatedRoute,
+      private router: Router,
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -37,6 +38,7 @@ export class LoginComponent {
 
   loginUser(){
     // TODO : implement the login function and navigate to vault page
+    this.router.navigate(["tabs"]);
   }
 
   togglePassword(): void {

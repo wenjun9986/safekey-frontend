@@ -1,0 +1,15 @@
+<footer class="footer-nav">
+    <div class="nav-container">
+        <a *ngFor="let button of navButtons"
+           [routerLink]="button.path"
+           routerLinkActive="active"
+           #rla="routerLinkActive"
+           [attr.aria-current]="rla.isActive ? 'page' : null"
+           class="nav-link">
+            <mat-icon *ngIf="!rla.isActive">{{ button.iconKey }}</mat-icon>
+            <mat-icon *ngIf="rla.isActive">{{ button.iconKeyActive }}</mat-icon>
+            <span>{{ button.label }}</span>
+        </a>
+    </div>
+</footer>
+<router-outlet></router-outlet>
