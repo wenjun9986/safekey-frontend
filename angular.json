@@ -36,7 +36,8 @@
             "styles": [
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/tailwindcss/tailwind.css"
+              "node_modules/tailwindcss/tailwind.css",
+              "@angular/material/prebuilt-themes/indigo-pink.css"
             ],
             "scripts": [
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
@@ -104,7 +105,8 @@
             "styles": [
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/tailwindcss/tailwind.css"
+              "node_modules/tailwindcss/tailwind.css",
+              "@angular/material/prebuilt-themes/indigo-pink.css"
             ],
             "scripts": [
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
