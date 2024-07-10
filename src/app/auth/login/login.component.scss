@@ -7,13 +7,6 @@
   align-items: center;
   position: relative;
 
-  .cancel-btn {
-    position: absolute;
-    left: 15px;
-    color: white;
-    font-size: 15px;
-  }
-
   .header-title {
     font-size: 20px;
     font-weight: 500;
@@ -21,9 +14,7 @@
   }
 }
 
-.warning-msg{
-  color: #777;
-  font-size: 13px;
-  margin: 0 5px 5px 5px;
+.no-margin {
+  margin: 0;
 }
 

@@ -2,7 +2,7 @@
   <div class="p-4 w-100">
     <img src="assets/images/icon128.png" alt="logo" class="mx-auto d-block" height="128" width="128">
     <h1 class="text-center safekey-title">SafeKey</h1>
-    <form [formGroup]="loginForm" (ngSubmit)="submit()" class="d-flex flex-column" >
+    <form [formGroup]="emailForm" (ngSubmit)="submit()" class="d-flex flex-column" >
         <mat-form-field class="w-100">
           <mat-label>Email</mat-label>
           <input type="email" matInput formControlName="email">
@@ -13,7 +13,7 @@
             Email is <strong>required</strong>
           </mat-error>
         </mat-form-field>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Proceed to Login</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!emailForm.valid">Proceed to Login</button>
       </form>
     <p class="text-center mt-4">
       New Around Here?

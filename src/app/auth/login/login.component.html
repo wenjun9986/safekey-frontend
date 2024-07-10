@@ -1,0 +1,20 @@
+<div class="w-100">
+    <div class="header-container">
+        <h1 class="header-title">Log In</h1>
+    </div>
+    <form [formGroup] = "loginForm" (ngSubmit)="loginUser()" class = "d-flex flex-column p-2 mt-2">
+        <mat-form-field class = "w-100">
+            <mat-label>Master Password</mat-label>
+            <input matInput  [type]="showPassword ? 'text' : 'password'"  formControlName="password">
+            <mat-icon matSuffix (click)="togglePassword()">{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-error *ngIf="hasError('password', 'required')">
+                Password is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color = "primary" type="submit" class="mt-2" [disabled]="loginForm.invalid">Log In with Master Password</button>
+    </form>
+    <div class="small p-2">
+        <p class="no-margin">Logging in as {{loggedEmail}}</p>
+        <a routerLink="/home">Not You?</a>
+    </div>
+</div>

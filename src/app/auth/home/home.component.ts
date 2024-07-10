@@ -9,33 +9,31 @@ import {Router} from "@angular/router";
 })
 export class HomeComponent implements OnInit {
   registerRoute = "/register";
-  loginForm: FormGroup;
+  emailForm: FormGroup;
   constructor(
     private fb: FormBuilder,
     private router: Router,
   ) {
-      this.loginForm = this.fb.group({
+      this.emailForm = this.fb.group({
           email: ['', [Validators.required, Validators.email]],
       });
   }
 
   get email() {
-    return this.loginForm.get('email');
+    return this.emailForm.get('email');
   }
 
   hasError(controlName: string, errorName: string) {
-    const control = this.loginForm.controls[controlName];
+    const control = this.emailForm.controls[controlName];
     return control.hasError(errorName);
   }
-
-
 
   ngOnInit(): void {
     // TODO: check how the remember email
   }
 
   async submit() {
-    console.log(this.loginForm.value);
-    await this.router.navigate(["login"]);
+    console.log(this.emailForm.value);
+    await this.router.navigate(["login"], { queryParams: { email: this.emailForm.value.email } });
   }
 }
