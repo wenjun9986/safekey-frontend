@@ -62,7 +62,6 @@ export class GeneratorComponent implements OnInit{
     }
   }
 
-
   updateOptions(): void {
     if (this.generatorForm.get('type')?.value === 'password') {
       this.passwordOptions = {
