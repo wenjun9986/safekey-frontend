@@ -39,7 +39,7 @@ $safekey-frontend-theme: mat.define-light-theme((
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900;ital,wght@0,900&display=swap');
 
-body {
+body, html {
   width: 375px !important;
   height: 600px !important;
   position: relative;
@@ -62,6 +62,29 @@ body.body-full {
 
 a {
   color: #0E86D4 !important;
+}
+
+.header-container {
+  height: 44px;
+  background-color: #3F51B5;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  .cancel-btn {
+    position: absolute;
+    left: 15px;
+    color: white;
+    font-size: 15px;
+  }
+
+  .header-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin:0;
+  }
 }
 
 html, body { height: 100%; }

@@ -1,9 +1,17 @@
+<div class="header-container">
+    <h1 class="header-title">{{ currentHeader }}</h1>
+</div>
+
+<div class="tabs-container">
+    <router-outlet></router-outlet>
+</div>
 <footer class="footer-nav">
     <div class="nav-container">
         <a *ngFor="let button of navButtons"
            [routerLink]="button.path"
            routerLinkActive="active"
            #rla="routerLinkActive"
+           (click)="updateHeader(button.header)"
            [attr.aria-current]="rla.isActive ? 'page' : null"
            class="nav-link">
             <mat-icon *ngIf="!rla.isActive">{{ button.iconKey }}</mat-icon>
@@ -12,4 +20,4 @@
         </a>
     </div>
 </footer>
-<router-outlet></router-outlet>
+

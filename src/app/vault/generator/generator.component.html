@@ -1,1 +1,102 @@
-<p>generator works!</p>
+<div class="w-100">
+    <main tabindex="-1">
+        <div class ="generated-block">
+            <div class="generated-wrapper">
+                {{generatedPassword}}
+            </div>
+            <div class="action-buttons">
+                <button mat-icon-button (click)="copyToClipboard()">
+                    <mat-icon>content_copy</mat-icon>
+                </button>
+                <button mat-icon-button (click)="generatePasswordOrPassphrase()">
+                    <mat-icon>sync</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div [formGroup]="generatorForm">
+            <mat-card>
+                <mat-card-content>
+                    <mat-card-subtitle> Password Type </mat-card-subtitle>
+                    <mat-radio-group formControlName="type" class="radio-group">
+                        <mat-radio-button value="password"> Password </mat-radio-button>
+                        <mat-radio-button value="passphrase"> Passphrase </mat-radio-button>
+                    </mat-radio-group>
+                </mat-card-content>
+            </mat-card>
+            <ng-container *ngIf="generatorForm.get('type')?.value === 'password'">
+                <mat-card class="pb-2">
+                    <mat-card-content>
+                        <mat-card-subtitle> Option </mat-card-subtitle>
+                        <div class="slider-container">
+                            <label>Length: {{generatorForm.get('length')?.value}}</label>
+                            <mat-slider min="12" max="60" discrete="true">
+                                <input matSliderThumb formControlName="length">
+                            </mat-slider>
+                        </div>
+                        <div class="slider-container">
+                            <label>Numbers: {{generatorForm.get('minNumbers')?.value}}</label>
+                            <mat-slider min="0" max="9" discrete="true">
+                                <input matSliderThumb formControlName="minNumbers">
+                            </mat-slider>
+                        </div>
+                        <div class="slider-container">
+                            <label>Special Characters: {{generatorForm.get('minSpecial')?.value}}</label>
+                            <mat-slider min="0" max="9" discrete="true">
+                                <input matSliderThumb formControlName="minSpecial">
+                            </mat-slider>
+                        </div>
+                        <div class="toggle-container">
+                            <div class="toggle-option mt-1">
+                                <span>Uppercase Letters (A-Z)</span>
+                                <mat-slide-toggle formControlName="includeUppercase"></mat-slide-toggle>
+                            </div>
+                            <div class="toggle-option">
+                                <span>Lowercase Letters (a-z)</span>
+                                <mat-slide-toggle formControlName="includeLowercase"></mat-slide-toggle>
+                            </div>
+                            <div class="toggle-option">
+                                <span>Numbers (0-9)</span>
+                                <mat-slide-toggle formControlName="includeNumbers"></mat-slide-toggle>
+                            </div>
+                            <div class="toggle-option">
+                                <span>Special Characters (!@#$%^&*)</span>
+                                <mat-slide-toggle formControlName="includeSpecial"></mat-slide-toggle>
+                            </div>
+                            <div class="toggle-option mb-1">
+                                <span>Avoid Ambiguous Characters</span>
+                                <mat-slide-toggle formControlName="avoidAmbiguous"></mat-slide-toggle>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </ng-container>
+            <ng-container *ngIf="generatorForm.get('type')?.value === 'passphrase'">
+                <mat-card>
+                    <mat-card-content>
+                        <mat-card-subtitle> Option </mat-card-subtitle>
+                        <mat-form-field class="w-100">
+                            <mat-label>Number of Words</mat-label>
+                            <input matInput type="number" min="3" max="10" formControlName="numWords">
+                        </mat-form-field>
+                        <mat-form-field class="w-100">
+                            <mat-label>Word Separator</mat-label>
+                            <input matInput type="text" maxlength="1" formControlName="wordSeparator">
+                        </mat-form-field>
+                        <div class="toggle-container">
+                            <div class="toggle-option mt-0">
+                                <span>Capitalize</span>
+                                <mat-slide-toggle formControlName="capitalize"></mat-slide-toggle>
+                            </div>
+                            <div class="toggle-option">
+                                <span>Include Number</span>
+                                <mat-slide-toggle formControlName="includeNumber"></mat-slide-toggle>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </ng-container>
+        </div>
+    </main>
+</div>
+
+

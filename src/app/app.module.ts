@@ -6,6 +6,11 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './auth/home/home.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
+import { TabsComponent } from './vault/tabs/tabs.component';
+import { VaultComponent } from './vault/vault/vault.component';
+import { GeneratorComponent } from './vault/generator/generator.component';
+import { SettingsComponent } from './vault/settings/settings.component';
+
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgOptimizedImage} from "@angular/common";
 import {MatInputModule} from "@angular/material/input";
@@ -13,11 +18,16 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from "@angular/material/icon";
-import { TabsComponent } from './vault/tabs/tabs.component';
-import { VaultComponent } from './vault/vault/vault.component';
-import { GeneratorComponent } from './vault/generator/generator.component';
 import {MatTabsModule} from "@angular/material/tabs";
-import { SettingsComponent } from './vault/settings/settings.component';
+import {MatRadioModule} from "@angular/material/radio";
+import {MatCardModule} from "@angular/material/card";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatSliderModule} from "@angular/material/slider";
+import {MatListModule} from "@angular/material/list";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+
+import {PasswordPassphraseService} from "./services/password-passphrase.service";
+import {Randomizer} from "./abstractions/randomizer";
 
 @NgModule({
   declarations: [
@@ -40,9 +50,15 @@ import { SettingsComponent } from './vault/settings/settings.component';
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
-    MatTabsModule
+    MatTabsModule,
+    MatRadioModule,
+    MatCardModule,
+    MatSlideToggleModule,
+    MatSliderModule,
+    MatListModule,
+    MatProgressBarModule
   ],
-  providers: [],
+  providers: [PasswordPassphraseService, Randomizer],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
