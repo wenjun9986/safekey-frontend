@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './auth/home/home.component';
 import { RegisterComponent } from './auth/register/register.component';
@@ -25,8 +26,11 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatSliderModule} from "@angular/material/slider";
 import {MatListModule} from "@angular/material/list";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 import {PasswordPassphraseService} from "./services/password-passphrase.service";
+import {PasswordStrengthService} from "./services/password-strength.service";
+import {PopupMessageService} from "./services/popup-message.service";
 import {Randomizer} from "./abstractions/randomizer";
 
 @NgModule({
@@ -43,6 +47,7 @@ import {Randomizer} from "./abstractions/randomizer";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     ReactiveFormsModule,
     NgOptimizedImage,
     MatInputModule,
@@ -56,9 +61,10 @@ import {Randomizer} from "./abstractions/randomizer";
     MatSlideToggleModule,
     MatSliderModule,
     MatListModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSnackBarModule
   ],
-  providers: [PasswordPassphraseService, Randomizer],
+  providers: [PasswordPassphraseService, PasswordStrengthService, PopupMessageService, Randomizer],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
