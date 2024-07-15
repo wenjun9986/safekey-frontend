@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
+import {VaultService} from "../../vault.service";
+import {PopupMessageService} from "../../services/popup-message.service";
 
 @Component({
   selector: 'app-home',
@@ -12,6 +14,8 @@ export class HomeComponent implements OnInit {
   emailForm: FormGroup;
   constructor(
     private fb: FormBuilder,
+    private popupMessageService: PopupMessageService,
+    private vaultService: VaultService,
     private router: Router,
   ) {
       this.emailForm = this.fb.group({
@@ -33,7 +37,13 @@ export class HomeComponent implements OnInit {
   }
 
   async submit() {
-    console.log(this.emailForm.value);
-    await this.router.navigate(["login"], { queryParams: { email: this.emailForm.value.email } });
+    this.vaultService.findUser(this.emailForm.value.email).subscribe({
+      next: (response: any) => {
+        this.router.navigate(["login"], { queryParams: { email: this.emailForm.value.email } });
+      },
+      error: (error: any) => {
+        this.popupMessageService.popupMsg("It appears your email isn't registered. Please sign up for an account.");
+      }
+    })
   }
 }
