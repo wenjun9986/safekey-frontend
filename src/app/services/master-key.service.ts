@@ -15,14 +15,14 @@ export class MasterKeyService {
     private cryptoFunctionService: CryptoFunctionService,
   ) { }
 
-  async generateMasterKey (password: string, email: string, kdfConfig: KdfConfig){
+  async generateMasterKey (email: string, password: string, kdfConfig: KdfConfig){
       const salt = await this.cryptoFunctionService.hash(email);
-      return await this.cryptoFunctionService.pbkdf2(password, salt, kdfConfig.iterations);
+      return await this.cryptoFunctionService.pbkdf2(password, salt, kdfConfig.iterations, kdfConfig.keyLength);
   }
 
   async generateMasterPasswordHash (masterKey: Uint8Array, password: string, kdfConfig: KdfConfig){
     const key = this.cryptoFunctionService.uint8ArrayToString(masterKey);
-    const derivedKey =  await this.cryptoFunctionService.pbkdf2(key, password, kdfConfig.iterations);
+    const derivedKey =  await this.cryptoFunctionService.pbkdf2(key, password, kdfConfig.iterations, kdfConfig.keyLength);
     return this.cryptoFunctionService.arrayBufferToBase64(derivedKey);
   }
 }

@@ -10,15 +10,12 @@ export class ApiService {
   constructor(private httpClient: HttpClient) { }
 
   private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {
-      // Client-side errors
-      errorMessage = `Error: ${error.error.message}`;
+      return throwError(() => new Error(`Client Error: ${error.error.message}`));
     } else {
-      // Server-side errors
-      errorMessage = error.error.error_msg || `Error Code: ${error.status}\nMessage: ${error.message}`;
+      const errorMessage = error.error.message || `Server Error Code: ${error.status}, Message: ${error.message}`;
+      return throwError(() => new Error(errorMessage));
     }
-    return throwError(() => new Error(errorMessage));
   }
 
   private retryHandler(attempts: number = 3) {
