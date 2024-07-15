@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
+import {MasterKeyService} from "../../services/master-key.service";
+import {VaultService} from "../../vault.service";
+import {PopupMessageService} from "../../services/popup-message.service";
 
 @Component({
   selector: 'app-login',
@@ -13,6 +16,9 @@ export class LoginComponent {
   constructor(
       private fb: FormBuilder,
       private route: ActivatedRoute,
+      private popupMessageService: PopupMessageService,
+      private masterKeyService: MasterKeyService,
+      private vaultService: VaultService,
       private router: Router,
   ) {
     this.loginForm = this.fb.group({
@@ -36,11 +42,28 @@ export class LoginComponent {
     return this.loginForm.value.email;
   }
 
-  loginUser(){
-    // TODO : implement the login function and navigate to vault page
-    this.router.navigate(["tabs"]);
+  private async generateMasterKeyHash() {
+    const {email, password} = this.loginForm.value;
+    const kdfConfig = {iterations: 600000, keyLength: 256};
+    const masterKey = await this.masterKeyService.generateMasterKey(email, password, kdfConfig);
+    const newKDFConfig = {iterations: 1, keyLength: 256};
+    return await this.masterKeyService.generateMasterPasswordHash(masterKey, password, newKDFConfig);
   }
 
+  async loginUser() {
+    const localHash = await this.generateMasterKeyHash();
+    this.vaultService.loginUser(this.loggedEmail).subscribe(
+        (response: any) => {
+          if (response.data.master_password_hash === localHash) {
+            this.router.navigate(['/tabs/vault']);
+          } else {
+            this.popupMessageService.popupMsg("Invalid Email and Password");
+          }
+        }, (error: any) => {
+            this.popupMessageService.popupMsg("Problems occurred while attempting to log in.");
+        }
+    )
+  }
   togglePassword(): void {
     this.showPassword = !this.showPassword;
   }

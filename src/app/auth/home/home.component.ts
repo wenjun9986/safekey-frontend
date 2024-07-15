@@ -42,7 +42,8 @@ export class HomeComponent implements OnInit {
         this.router.navigate(["login"], { queryParams: { email: this.emailForm.value.email } });
       },
       error: (error: any) => {
-        this.popupMessageService.popupMsg("It appears your email isn't registered. Please sign up for an account.");
+        this.popupMessageService.popupMsg("It appears your email isn't registered. Redirecting you to the registration Page");
+        this.router.navigate(["register"], { queryParams: { email: this.emailForm.value.email } });
       }
     })
   }
