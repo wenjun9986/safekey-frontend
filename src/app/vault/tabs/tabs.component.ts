@@ -9,7 +9,7 @@ export class TabsComponent {
   //TODO: change based the behaviour later
 
   navButtons = [
-    {label: 'Add Item', path: '/tabs/vault-manager', header: 'Add Items', iconKey: 'add_circle', iconKeyActive: 'add_circle'},
+    {label: 'Add Item', path: '/tabs/form-manager', header: 'Add Items', iconKey: 'add_circle', iconKeyActive: 'add_circle'},
     {label: 'Vault', path: '/tabs/vault-list', header: 'Vault', iconKey: 'lock', iconKeyActive: 'lock_open'},
     {label: 'Generator', path: '/tabs/generator', header: 'Password Generator', iconKey: 'vpn_key', iconKeyActive: 'vpn_key' },
     {label: 'Settings', path: '/tabs/settings', header: 'Settings', iconKey: 'settings', iconKeyActive: 'settings'}

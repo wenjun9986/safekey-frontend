@@ -10,11 +10,11 @@ import {VaultService} from "../../vault.service";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-vault-manager',
-  templateUrl: './vault-manager.component.html',
-  styleUrls: ['./vault-manager.component.scss']
+  selector: 'app-form-manager',
+  templateUrl: './form-manager.component.html',
+  styleUrls: ['./form-manager.component.scss']
 })
-export class VaultManagerComponent {
+export class FormManagerComponent {
 
   @ViewChild(LoginFormComponent) loginFormComponent?: LoginFormComponent
   @ViewChild(PaymentFormComponent) paymentFormComponent?: PaymentFormComponent
@@ -30,7 +30,6 @@ export class VaultManagerComponent {
       private masterKey: MasterKeyService,
       private popupMessage: PopupMessageService,
       private vaultService: VaultService,
-      private router: Router
   ) {
     this.typeForm = this.fb.group({
       type: ['', [Validators.required]],
@@ -83,7 +82,8 @@ export class VaultManagerComponent {
         this.vaultService.insertVaultItem("1003", this.currentType, encryptedData).subscribe(
             (response: any) => {
               this.popupMessage.popupMsg("Vault Item Created Successfully");
-              this.router.navigate(['/tabs/vault-list'])
+              this.typeForm.reset();
+              this.currentType = "";
             },
             (error: any) => {
               this.popupMessage.popupMsg("An unexpected error occurred while creating this vault.");

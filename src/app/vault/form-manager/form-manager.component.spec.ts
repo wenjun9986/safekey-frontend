@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VaultManagerComponent } from './vault-manager.component';
+import { VaultManagerComponent } from './form-manager.component';
 
 describe('VaultManagerComponent', () => {
   let component: VaultManagerComponent;
