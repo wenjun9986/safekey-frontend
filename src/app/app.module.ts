@@ -8,9 +8,13 @@ import { HomeComponent } from './auth/home/home.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { TabsComponent } from './vault/tabs/tabs.component';
-import { VaultComponent } from './vault/vault/vault.component';
+import { VaultListComponent } from './vault/vault-list/vault-list.component';
 import { GeneratorComponent } from './vault/generator/generator.component';
 import { SettingsComponent } from './vault/settings/settings.component';
+import { VaultManagerComponent } from './vault/vault-manager/vault-manager.component';
+import { LoginFormComponent } from './vault/vault-manager/login-form/login-form.component';
+import { PaymentFormComponent } from './vault/vault-manager/payment-form/payment-form.component';
+import { NoteFormComponent } from './vault/vault-manager/note-form/note-form.component';
 
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgOptimizedImage} from "@angular/common";
@@ -27,6 +31,8 @@ import {MatSliderModule} from "@angular/material/slider";
 import {MatListModule} from "@angular/material/list";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatSelectModule} from "@angular/material/select";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 import {PasswordPassphraseService} from "./services/password-passphrase.service";
 import {PasswordStrengthService} from "./services/password-strength.service";
@@ -40,19 +46,23 @@ import {Randomizer} from "./abstractions/randomizer";
     RegisterComponent,
     LoginComponent,
     TabsComponent,
-    VaultComponent,
     GeneratorComponent,
     SettingsComponent,
+    VaultManagerComponent,
+    VaultListComponent,
+    LoginFormComponent,
+    PaymentFormComponent,
+    NoteFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     NgOptimizedImage,
     MatInputModule,
     MatFormFieldModule,
-    BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
     MatTabsModule,
@@ -62,7 +72,9 @@ import {Randomizer} from "./abstractions/randomizer";
     MatSliderModule,
     MatListModule,
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSelectModule,
+    MatDatepickerModule,
   ],
   providers: [PasswordPassphraseService, PasswordStrengthService, PopupMessageService, Randomizer],
   bootstrap: [AppComponent]

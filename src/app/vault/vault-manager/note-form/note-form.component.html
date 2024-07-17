@@ -1,0 +1,13 @@
+<div [formGroup]="noteForm">
+    <mat-form-field class="w-100">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" required>
+        <mat-error *ngIf="hasError('title', 'required')">
+            Secure Note Title is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+        <mat-label>Content</mat-label>
+        <textarea matInput formControlName="content"></textarea>
+    </mat-form-field>
+</div>

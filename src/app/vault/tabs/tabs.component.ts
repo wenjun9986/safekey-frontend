@@ -5,11 +5,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./tabs.component.scss']
 })
 export class TabsComponent {
-  currentHeader = 'Default Title';
+  currentHeader = 'Vault';
   //TODO: change based the behaviour later
 
   navButtons = [
-    {label: 'Vault', path: '/tabs/vault', header: 'Vault', iconKey: 'lock', iconKeyActive: 'lock_open'},
+    {label: 'Add Item', path: '/tabs/vault-manager', header: 'Add Items', iconKey: 'add_circle', iconKeyActive: 'add_circle'},
+    {label: 'Vault', path: '/tabs/vault-list', header: 'Vault', iconKey: 'lock', iconKeyActive: 'lock_open'},
     {label: 'Generator', path: '/tabs/generator', header: 'Password Generator', iconKey: 'vpn_key', iconKeyActive: 'vpn_key' },
     {label: 'Settings', path: '/tabs/settings', header: 'Settings', iconKey: 'settings', iconKeyActive: 'settings'}
   ];

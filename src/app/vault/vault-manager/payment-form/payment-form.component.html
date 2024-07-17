@@ -1,0 +1,69 @@
+<div [formGroup]="paymentForm">
+    <mat-form-field class="w-100">
+        <mat-label> Title </mat-label>
+        <input matInput formControlName="title" required>
+        <mat-error *ngIf="hasError('title', 'required')">
+            Vault Title is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+        <mat-label> Card Holder Name </mat-label>
+        <input matInput formControlName="cardHolderName" placeholder="Card Holder Name">
+    </mat-form-field>
+    <mat-form-field class="w-100">
+        <mat-label> Card Number </mat-label>
+        <input matInput [type]="showCardNumber ? 'text' : 'password'" maxlength="19" formControlName="cardNumber" (input)="formatCardNumber($event)" required>
+        <mat-icon matSuffix (click)="toggleCardNumber()">{{showCardNumber ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="hasError('cardNumber', 'required')">
+            Card Number is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="hasError('cardNumber', 'pattern')">
+            Invalid Card Number
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+        <mat-label> Card Type </mat-label>
+        <mat-select formControlName="cardType" required>
+            <mat-option value="visa">
+                <img src="assets/payment-icon/visa.png" alt="Visa" class="image-container">
+                <span class="option-text">Visa</span>
+            </mat-option>
+            <mat-option value="mastercard">
+                <img src="assets/payment-icon/mastercard.png" alt="Master Card" class="image-container">
+                <span>Mastercard</span>
+            </mat-option>
+            <mat-option value="amex">
+                <img src="assets/payment-icon/amex.png" alt="American Express" class="image-container">
+                <span>American Express</span>
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="hasError('cardType', 'required')">
+            Card Type is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <!--TODO: Fix Date Picker-->
+    <!--<mat-form-field>
+        <mat-label> Expiration Data </mat-label>
+        <input matInput [matDatepicker]="dp" formControlName="expirationDate">
+        <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, dp)"></mat-datepicker>
+    </mat-form-field>-->
+    <mat-form-field class="w-100">
+        <mat-label> Expiration Data </mat-label>
+        <input matInput formControlName="expirationDate" placeholder="MM/YY" (input)="formatExpirationDate($event)">
+        <mat-error *ngIf="hasError('expirationDate', 'pattern')">
+            Invalid Expiration Date
+        </mat-error>
+        <mat-error *ngIf="hasError('expirationDate', 'dateInPast')">
+            Expiration Date is in the past
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+        <mat-label> Security Code (CCV) </mat-label>
+        <input matInput [type]="showSecurityCode ? 'text' : 'password'" maxlength="3" formControlName="securityCode">
+        <mat-icon matSuffix (click)="toggleSecurityCode()">{{showSecurityCode ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="hasError('securityCode', 'pattern')">
+            Invalid CVV
+        </mat-error>
+    </mat-form-field>
+</div>

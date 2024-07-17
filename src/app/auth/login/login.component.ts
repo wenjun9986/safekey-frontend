@@ -33,13 +33,18 @@ export class LoginComponent {
       }
     });
   }
+
+  get loggedEmail() {
+    return this.loginForm.value.email;
+  }
+
   hasError(controlName: string, errorName: string) {
     const control = this.loginForm.controls[controlName];
     return control.hasError(errorName);
   }
 
-  get loggedEmail() {
-    return this.loginForm.value.email;
+  togglePassword(): void {
+    this.showPassword = !this.showPassword;
   }
 
   private async generateMasterKeyHash() {
@@ -55,7 +60,7 @@ export class LoginComponent {
     this.vaultService.loginUser(this.loggedEmail).subscribe(
         (response: any) => {
           if (response.data.master_password_hash === localHash) {
-            this.router.navigate(['/tabs/vault']);
+            this.router.navigate(['/tabs/vault-list']);
           } else {
             this.popupMessageService.popupMsg("Invalid Email and Password");
           }
@@ -63,8 +68,5 @@ export class LoginComponent {
             this.popupMessageService.popupMsg("Problems occurred while attempting to log in.");
         }
     )
-  }
-  togglePassword(): void {
-    this.showPassword = !this.showPassword;
   }
 }

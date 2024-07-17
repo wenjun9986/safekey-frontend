@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {PasswordPassphraseService} from "../../services/password-passphrase.service";
 import {DefaultPasswordGenerationOptions, DefaultPassphraseGenerationOptions, PassphraseGenerationOptions, PasswordGenerationOptions} from "../../services/password-passphrase.service";
+import {PopupMessageService} from "../../services/popup-message.service";
 @Component({
   selector: 'app-generator',
   templateUrl: './generator.component.html',
@@ -15,6 +16,7 @@ export class GeneratorComponent implements OnInit{
 
   constructor(
       private fb: FormBuilder,
+      private popupMessage: PopupMessageService,
       private passwordPassphraseService: PasswordPassphraseService,
   ) {
     this.generatorForm = this.fb.group({
@@ -27,7 +29,7 @@ export class GeneratorComponent implements OnInit{
       minNumbers: [this.passwordOptions.minNumber, [Validators.min(0), Validators.max(9)]],
       minSpecial: [this.passwordOptions.minSpecial, [Validators.min(0), Validators.max(9)]],
       avoidAmbiguous: [this.passwordOptions.ambiguous],
-      numWords: [this.passphraseOptions.numWords , [Validators.min(3), Validators.max(10)]],
+      numWords: [this.passphraseOptions.numWords , [Validators.required, Validators.min(3), Validators.max(10)]],
       wordSeparator: [this.passphraseOptions.wordSeparator],
       capitalize: [this.passphraseOptions.capitalize],
       includeNumber: [this.passphraseOptions.includeNumber],
@@ -105,13 +107,13 @@ export class GeneratorComponent implements OnInit{
       if (!includeUppercase && !includeLowercase && !includeNumbers && !includeSpecial) {
         formGroup.get('includeUppercase')?.setValue(true);
       }
-
       return null;
     };
   }
 
   copyToClipboard(): void {
     navigator.clipboard.writeText(this.generatedPassword);
+    this.popupMessage.popupMsg('Password copied to clipboard');
   }
 }
 

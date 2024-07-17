@@ -5,13 +5,15 @@ import { HomeComponent } from './auth/home/home.component';
 import { RegisterComponent } from "./auth/register/register.component";
 import { LoginComponent } from "./auth/login/login.component";
 import { TabsComponent } from "./vault/tabs/tabs.component";
-import { VaultComponent } from "./vault/vault/vault.component";
 import { GeneratorComponent } from "./vault/generator/generator.component";
 import { SettingsComponent } from './vault/settings/settings.component';
+import {VaultListComponent} from "./vault/vault-list/vault-list.component";
+import {VaultManagerComponent} from "./vault/vault-manager/vault-manager.component";
 
 const routes: Routes = [
   {
     path: '',
+    /*redirectTo: '/tabs/vault-manager',*/
     redirectTo: '/home',
     pathMatch: 'full', // Ensure that this route is matched when the entire URL is empty
   },
@@ -33,12 +35,16 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'vault',
+        redirectTo: 'vault-list',
         pathMatch: 'full',
       },
       {
-        path: 'vault',
-        component: VaultComponent,
+        path: 'vault-manager',
+        component:VaultManagerComponent,
+      },
+      {
+        path: 'vault-list',
+        component: VaultListComponent,
       },
       {
         path: 'generator',

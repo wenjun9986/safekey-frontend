@@ -8,12 +8,51 @@ export class VaultService {
   private api_url = 'http://api.safekey.local';
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
   ) { }
 
-  testing() {
-    const path = `${this.api_url}/test`;
+  findUser(email: any): any {
+    const path = `${this.api_url}/user/find`;
+    const params: any = {
+      email: email,
+    };
+    return this.apiService.get(path, params);
+  }
+
+  loginUser(email: string): any {
+    const path = `${this.api_url}/user/login`;
+    const params: any ={
+      email: email,
+    }
+    return this.apiService.get(path, params);
+  }
+
+  registerUser(email: string, masterPasswordHash: string): any {
+    const path = `${this.api_url}/user/register`;
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('master_password_hash', masterPasswordHash);
+    return this.apiService.post(path, formData);
+  }
+
+  getVaultData(): any {
+    const path = `${this.api_url}/vault/list`;
+    const params: any = {
+    };
     return this.apiService.get(path);
   }
 
+  insertVaultItem(userId: string, type: string, encryptedDate: string): any {
+    const path = `${this.api_url}/vault/createItem`;
+    const formData = new FormData();
+    formData.append('user_id', userId);
+    formData.append('type', type);
+    formData.append('encrypted_data', encryptedDate);
+    return this.apiService.post(path, formData);
+  }
+
+  updateVaultItem(data: any): any {
+    const path = `${this.api_url}/vault/updateItem`;
+    return this.apiService.put(path, data);
+  }
 }

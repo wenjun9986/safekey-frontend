@@ -36,7 +36,7 @@ export class VaultEncryptionService {
     if(!validHMAC){
       throw new Error('Data Integrity Check Failed');
     }
-    const decryptedData = await this.cryptoFunctionService.aesDecrypt(new Uint8Array(encryptedData), new Uint8Array(iv), key);
+    const decryptedData = await this.cryptoFunctionService.aesDecrypt(new Uint8Array(encryptedData), key, new Uint8Array(iv));
     const decoder = new TextDecoder();
     return decoder.decode(decryptedData);
   }

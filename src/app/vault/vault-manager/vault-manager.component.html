@@ -1,0 +1,36 @@
+<div class="w-100">
+    <main tabindex="-1">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-subtitle>
+                    Select your Vault Type
+                </mat-card-subtitle>
+                <div [formGroup]="typeForm">
+                    <mat-form-field class="w-100">
+                        <mat-label>Vault Type</mat-label>
+                        <mat-select formControlName="type">
+                            <mat-option value="login"> Login </mat-option>
+                            <mat-option value="payment_method"> Payment Method </mat-option>
+                            <mat-option value="note"> Secure Note </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="hasError('type', 'required')">
+                            Vault Type is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <div *ngIf="currentType">
+            <mat-card class="form-container">
+            <mat-card-content>
+                <mat-card-subtitle>Vault Information</mat-card-subtitle>
+                <app-login-form *ngIf="currentType === 'login'" (formDataSubmit)="handleFormData($event)" (formValid)="updateFormValidity($event)"></app-login-form>
+                <app-payment-form *ngIf="currentType === 'payment_method'" (formDataSubmit)="handleFormData($event)" (formValid)="updateFormValidity($event)"></app-payment-form>
+                <app-note-form *ngIf="currentType === 'note'" (formDataSubmit)="handleFormData($event)" (formValid)="updateFormValidity($event)"></app-note-form>
+            </mat-card-content>
+            </mat-card>
+            <button mat-raised-button color="primary" class="createBtn" (click)="submitCurrentForm()" [disabled]="!isFormValid"> Create Vault Item </button>
+        </div>
+    </main>
+</div>
+

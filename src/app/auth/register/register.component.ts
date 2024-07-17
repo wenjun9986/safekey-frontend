@@ -64,7 +64,8 @@ export class RegisterComponent{
   }
 
   private async generateMasterKeyHash() {
-    const {email, password} = this.registerForm.value;
+    const email = this.registerForm.value.email.toLowerCase();
+    const password = this.registerForm.value.password;
     const kdfConfig = {iterations: 600000, keyLength: 256};
     const masterKey = await this.masterKeyService.generateMasterKey(email, password, kdfConfig);
     const newKDFConfig = {iterations: 1, keyLength: 256};
@@ -72,7 +73,7 @@ export class RegisterComponent{
   }
 
   async registerUser() {
-    const {email} = this.registerForm.value;
+    const email = this.registerForm.value.email.toLowerCase();
     const masterPasswordHash = await this.generateMasterKeyHash();
     this.vaultService.registerUser(email, masterPasswordHash).subscribe(
         (response: any) => {
@@ -80,11 +81,7 @@ export class RegisterComponent{
             this.router.navigate(["home"]);
         },
         (error: any) => {
-          if (error.status === 409) {
-            this.popupMessageService.popupMsg("User already exists");
-          } else {
-            this.popupMessageService.popupMsg("Error registering user");
-          }
+          this.popupMessageService.popupMsg("The email is already associated with an account. Try registering using another email.");
         }
     );
   }

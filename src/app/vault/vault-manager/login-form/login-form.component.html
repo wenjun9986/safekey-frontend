@@ -1,0 +1,29 @@
+<div [formGroup]="loginForm">
+    <mat-form-field class="w-100">
+        <mat-label> Title </mat-label>
+        <input matInput type="text" formControlName="title" required>
+        <mat-error *ngIf="hasError('title', 'required')">
+            Vault Title is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+        <mat-label>Username</mat-label>
+        <input matInput type="text" formControlName="username" required>
+        <mat-error *ngIf="hasError('username', 'required')">
+            Username is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+        <mat-label>Password</mat-label>
+        <input matInput  [type]="showPassword ? 'text' : 'password'"  formControlName="password">
+        <mat-icon matSuffix (click)="generatePassword()">sync</mat-icon>
+        <mat-icon matSuffix (click)="togglePassword()">{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="hasError('password', 'required')">
+            Password is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+        <mat-label>URL</mat-label>
+        <input matInput type="text" formControlName="url" placeholder="https://example.com">
+    </mat-form-field>
+</div>
