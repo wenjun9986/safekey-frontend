@@ -13,7 +13,7 @@
     <mat-form-field class="w-100">
         <mat-label> Card Number </mat-label>
         <input matInput [type]="showCardNumber ? 'text' : 'password'" maxlength="19" formControlName="cardNumber" (input)="formatCardNumber($event)" required>
-        <mat-icon matSuffix (click)="toggleCardNumber()">{{showCardNumber ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-icon matSuffix matTooltip="Show/Hide" matTooltipPosition="above" (click)="toggleCardNumber()">{{showCardNumber ? 'visibility_off' : 'visibility'}}</mat-icon>
         <mat-error *ngIf="hasError('cardNumber', 'required')">
             Card Number is <strong>required</strong>
         </mat-error>
@@ -61,7 +61,7 @@
     <mat-form-field class="w-100">
         <mat-label> Security Code (CCV) </mat-label>
         <input matInput [type]="showSecurityCode ? 'text' : 'password'" maxlength="3" formControlName="securityCode">
-        <mat-icon matSuffix (click)="toggleSecurityCode()">{{showSecurityCode ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-icon matSuffix matTooltip="Show/Hide" matTooltipPosition="above" (click)="toggleSecurityCode()">{{showSecurityCode ? 'visibility_off' : 'visibility'}}</mat-icon>
         <mat-error *ngIf="hasError('securityCode', 'pattern')">
             Invalid CVV
         </mat-error>

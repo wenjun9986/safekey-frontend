@@ -33,6 +33,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 import {PasswordPassphraseService} from "./services/password-passphrase.service";
 import {PasswordStrengthService} from "./services/password-strength.service";
@@ -75,6 +76,7 @@ import {Randomizer} from "./abstractions/randomizer";
     MatSnackBarModule,
     MatSelectModule,
     MatDatepickerModule,
+    MatTooltipModule,
   ],
   providers: [PasswordPassphraseService, PasswordStrengthService, PopupMessageService, Randomizer],
   bootstrap: [AppComponent]

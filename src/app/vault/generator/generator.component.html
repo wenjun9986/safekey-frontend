@@ -5,10 +5,10 @@
                 {{generatedPassword}}
             </div>
             <div class="action-buttons">
-                <button mat-icon-button (click)="copyToClipboard()">
+                <button mat-icon-button matTooltip="Copy to Clipboard" matTooltipPosition="above" (click)="copyToClipboard()">
                     <mat-icon>content_copy</mat-icon>
                 </button>
-                <button mat-icon-button (click)="generatePasswordOrPassphrase()">
+                <button mat-icon-button matTooltip="Regenerate" matTooltipPosition="above" (click)="generatePasswordOrPassphrase()">
                     <mat-icon>sync</mat-icon>
                 </button>
             </div>

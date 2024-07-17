@@ -20,7 +20,7 @@
     <mat-form-field class = "w-100">
       <mat-label>Master Password</mat-label>
       <input matInput  [type]="showPassword ? 'text' : 'password'"  formControlName="password">
-      <mat-icon matSuffix (click)="togglePassword()">{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-icon matSuffix matTooltip="Show/Hide" matTooltipPosition="above" (click)="togglePassword()">{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
       <mat-error *ngIf="hasError('password', 'required')">
         Password is <strong>required</strong>
       </mat-error>
@@ -31,7 +31,7 @@
     <mat-form-field class="w-100">
       <mat-label>Re-Type Master Password</mat-label>
       <input matInput [type]="showConfirmPassword ? 'text' : 'password'" formControlName = "confirmPassword">
-      <mat-icon matSuffix (click)="toggleConfirmPassword()">{{showConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-icon matSuffix matTooltip="Show/Hide" matTooltipPosition="above" (click)="toggleConfirmPassword()">{{showConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
       <mat-error *ngIf="hasError('confirmPassword', 'mustMatch')">
         Passwords do not match
       </mat-error>
