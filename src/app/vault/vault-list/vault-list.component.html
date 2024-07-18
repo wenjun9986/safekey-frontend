@@ -1,1 +1,30 @@
-<p>vault-list works!</p>
+<div class="w-100">
+    <main tabindex="-1">
+        <div *ngIf="isLoading" class="centered-content">
+            <mat-spinner></mat-spinner>
+        </div>
+        <div *ngIf="!isLoading && !hasData" class="centered-content">
+            <mat-icon>no_encryption</mat-icon>
+            <p>No Items Found.</p>
+            <p>Proceed to add your first vault item</p>
+        </div>
+        <div *ngIf="!isLoading && hasData" class="vault-accordion p-2">
+            <mat-accordion multi="true">
+                <mat-expansion-panel *ngFor="let category of categories" class="category-panel">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-icon class="category-icon">{{category.icon}}</mat-icon>
+                            <span class="category-title">{{ formatTitle(category.type) }}</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ng-container *ngFor="let item of category.items" class="p-1">
+                        <app-login-vault *ngIf="category.type === 'login'" [item]="item"></app-login-vault>
+                        <app-payment-vault *ngIf="category.type === 'payment_method'" [item]="item"></app-payment-vault>
+                        <app-note-vault *ngIf="category.type === 'note'" [item]="item"></app-note-vault>
+                    </ng-container>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </main>
+</div>
+

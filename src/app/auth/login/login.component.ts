@@ -70,3 +70,6 @@ export class LoginComponent {
     )
   }
 }
+
+
+//TODO: Move the authentication logic to the server side

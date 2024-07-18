@@ -1,1 +1,18 @@
-<p>login-vault works!</p>
+<mat-card>
+    <mat-card-content>
+        <div class="login-info" (click)="redirectTo()">
+            <mat-icon matPrefix>web</mat-icon>
+            <div class="login-details-section">
+                <div>{{this.decryptedData.title}}</div>
+                <div class="login-details">
+                    {{this.decryptedData.username}}
+                </div>
+            </div>
+        </div>
+        <div class="login-actions">
+            <mat-icon matSuffix matTooltip="Redirect" matTooltipPosition="above" (click)="redirectTo()">exit_to_app</mat-icon>
+            <mat-icon matSuffix matTooltip="Copy Username" matTooltipPosition="above" (click)="copyToClipboard(this.decryptedData.username)">person</mat-icon>
+            <mat-icon matSuffix matTooltip="Copy Password" matTooltipPosition="above" (click)="copyToClipboard(this.decryptedData.password)">password</mat-icon>
+        </div>
+    </mat-card-content>
+</mat-card>

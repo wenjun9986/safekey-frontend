@@ -35,11 +35,12 @@ export class VaultService {
     return this.apiService.post(path, formData);
   }
 
-  getVaultData(): any {
+  getVaultData(userId: string): any {
     const path = `${this.api_url}/vault/list`;
     const params: any = {
+        user_id: userId,
     };
-    return this.apiService.get(path);
+    return this.apiService.get(path, params);
   }
 
   insertVaultItem(userId: string, type: string, encryptedDate: string): any {

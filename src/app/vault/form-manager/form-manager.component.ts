@@ -7,7 +7,6 @@ import {VaultEncryptionService} from "../../services/vault-encryption.service";
 import {MasterKeyService} from "../../services/master-key.service";
 import {PopupMessageService} from "../../services/popup-message.service";
 import {VaultService} from "../../vault.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-form-manager',
@@ -48,9 +47,7 @@ export class FormManagerComponent {
     this.isFormValid = isValid;
   }
 
-  handleFormData(formData: any) {
-    console.log(formData);
-  }
+  handleFormData(formData: any) {}
 
   async getMasterKey() {
     const email = "test@test.com";

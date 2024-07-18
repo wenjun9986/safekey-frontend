@@ -1,0 +1,43 @@
+mat-card {
+  width: 100%;
+  margin-bottom: 10px;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 5px;
+
+  mat-card-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 5px 10px 0 10px;
+
+    .card-info {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+      cursor: pointer;
+
+      .card-icon {
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+      }
+
+      .card-details {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.85rem;
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+    .card-actions {
+      display: flex;
+      align-items: center;
+      margin-left: 10px;
+    }
+  }
+}

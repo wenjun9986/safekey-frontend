@@ -7,14 +7,14 @@ import { LoginComponent } from "./auth/login/login.component";
 import { TabsComponent } from "./vault/tabs/tabs.component";
 import { GeneratorComponent } from "./vault/generator/generator.component";
 import { SettingsComponent } from './vault/settings/settings.component';
-import {VaultListComponent} from "./vault/vault-list/vault-list.component";
-import {VaultManagerComponent} from "./vault/vault-manager/vault-manager.component";
+import { VaultListComponent } from "./vault/vault-list/vault-list.component";
+import { FormManagerComponent } from "./vault/form-manager/form-manager.component";
 
 const routes: Routes = [
   {
     path: '',
-    /*redirectTo: '/tabs/vault-manager',*/
-    redirectTo: '/home',
+    redirectTo: '/tabs/vault-list',
+    /*redirectTo: '/home',*/
     pathMatch: 'full', // Ensure that this route is matched when the entire URL is empty
   },
   {
@@ -39,8 +39,8 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
-        path: 'vault-manager',
-        component:VaultManagerComponent,
+        path: 'form-manager',
+        component:FormManagerComponent,
       },
       {
         path: 'vault-list',

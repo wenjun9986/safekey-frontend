@@ -11,10 +11,13 @@ import { TabsComponent } from './vault/tabs/tabs.component';
 import { VaultListComponent } from './vault/vault-list/vault-list.component';
 import { GeneratorComponent } from './vault/generator/generator.component';
 import { SettingsComponent } from './vault/settings/settings.component';
-import { VaultManagerComponent } from './vault/vault-manager/vault-manager.component';
-import { LoginFormComponent } from './vault/vault-manager/login-form/login-form.component';
-import { PaymentFormComponent } from './vault/vault-manager/payment-form/payment-form.component';
-import { NoteFormComponent } from './vault/vault-manager/note-form/note-form.component';
+import { FormManagerComponent } from './vault/form-manager/form-manager.component';
+import { LoginFormComponent } from './vault/form-manager/login-form/login-form.component';
+import { PaymentFormComponent } from './vault/form-manager/payment-form/payment-form.component';
+import { NoteFormComponent } from './vault/form-manager/note-form/note-form.component';
+import { LoginVaultComponent } from './vault/vault-list/login-vault/login-vault.component';
+import { PaymentVaultComponent } from './vault/vault-list/payment-vault/payment-vault.component';
+import { NoteVaultComponent } from './vault/vault-list/note-vault/note-vault.component';
 
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgOptimizedImage} from "@angular/common";
@@ -34,11 +37,13 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 import {PasswordPassphraseService} from "./services/password-passphrase.service";
 import {PasswordStrengthService} from "./services/password-strength.service";
 import {PopupMessageService} from "./services/popup-message.service";
 import {Randomizer} from "./abstractions/randomizer";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 @NgModule({
   declarations: [
@@ -49,13 +54,16 @@ import {Randomizer} from "./abstractions/randomizer";
     TabsComponent,
     GeneratorComponent,
     SettingsComponent,
-    VaultManagerComponent,
-    VaultListComponent,
+    FormManagerComponent,
     LoginFormComponent,
     PaymentFormComponent,
     NoteFormComponent,
+    VaultListComponent,
+    LoginVaultComponent,
+    PaymentVaultComponent,
+    NoteVaultComponent,
   ],
-  imports: [
+    imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -77,6 +85,8 @@ import {Randomizer} from "./abstractions/randomizer";
     MatSelectModule,
     MatDatepickerModule,
     MatTooltipModule,
+    MatExpansionModule,
+    MatProgressSpinnerModule,
   ],
   providers: [PasswordPassphraseService, PasswordStrengthService, PopupMessageService, Randomizer],
   bootstrap: [AppComponent]

@@ -1,0 +1,35 @@
+.centered-content {
+  position: fixed;  /* Use fixed to position relative to the viewport */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  mat-icon{
+    height: 60px;
+    width: 60px;
+    font-size: 60px;
+  }
+}
+
+
+.vault-accordion .category-panel {
+  .mat-expansion-panel-header {
+    padding: 0 16px;
+  }
+  .category-icon {
+    font-size: 24px; // Larger icon
+    margin-right: 10px; // Margin between icon and title
+  }
+  .category-title {
+    font-size: 18px; // Larger text
+  }
+  .item-details {
+    padding: 0 16px 16px; // Padding for items within the panel
+  }
+}
+

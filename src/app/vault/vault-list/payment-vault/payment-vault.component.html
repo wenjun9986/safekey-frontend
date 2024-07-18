@@ -1,1 +1,19 @@
-<p>payment-vault works!</p>
+<mat-card>
+    <mat-card-content>
+        <div class="card-info" (click)="copyToClipboard('abc')">
+            <img [src]="getCardIcons(this.decryptedData.cardType)" alt="{{ this.decryptedData.cardType }}" class="card-icon">
+            <div>
+                <div>{{this.decryptedData.title}}</div>
+                    <div class="card-details">
+                        {{ this.decryptedData.cardType | titlecase }}, *{{ this.decryptedData.cardNumber.slice(-4) }}
+                </div>
+            </div>
+        </div>
+        <div class="icon-actions">
+            <mat-icon matSuffix matTooltip="Copy Card Number" matTooltipPosition="above" (click)="copyToClipboard(this.decryptedData.cardNumber)">tag</mat-icon>
+            <mat-icon matSuffix matTooltip="Copy Security Code" matTooltipPosition="above" (click)="copyToClipboard(this.decryptedData.securityCode)">123</mat-icon>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+

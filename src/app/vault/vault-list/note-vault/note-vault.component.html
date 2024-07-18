@@ -1,1 +1,13 @@
-<p>note-vault works!</p>
+<mat-card>
+    <mat-card-content>
+        <div class="note-info" (click)="copyToClipboard()">
+            <mat-icon matPrefix>sticky_note_2</mat-icon>
+            <div class="note-details-section">{{decryptedData.title}}</div>
+        </div>
+        <div class="note-action">
+            <mat-icon matSuffix matTooltip="Copy Content" matTooltipPosition="above" (click)="copyToClipboard()">file_copy</mat-icon>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+
