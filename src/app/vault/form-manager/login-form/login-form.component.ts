@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {
   DefaultPasswordGenerationOptions,
@@ -11,18 +11,21 @@ import {
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
-export class LoginFormComponent implements OnInit{
+export class LoginFormComponent implements OnInit {
 
   @Output() formDataSubmit: EventEmitter<any> = new EventEmitter<any>();
   @Output() formValid: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() formChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() formData: any;
 
   loginForm: FormGroup;
   showPassword = false;
-  passwordOptions: PasswordGenerationOptions = { ...DefaultPasswordGenerationOptions } as PasswordGenerationOptions;
+  initialState: any;
+  passwordOptions: PasswordGenerationOptions = {...DefaultPasswordGenerationOptions} as PasswordGenerationOptions;
 
   constructor(
-    private fb: FormBuilder,
-    private passwordPassphraseService: PasswordPassphraseService,
+      private fb: FormBuilder,
+      private passwordPassphraseService: PasswordPassphraseService,
   ) {
     this.loginForm = this.fb.group({
       title: ['', [Validators.required]],
@@ -33,8 +36,18 @@ export class LoginFormComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.loginForm.statusChanges.subscribe(status => {
-      this.formValid.emit(status === 'VALID');
+    if (this.formData) {
+      this.loginForm.patchValue(this.formData);
+      this.initialState = this.loginForm.value; // Capture initial state
+    }
+
+    this.loginForm.valueChanges.subscribe(() => {
+      const isFormDirty = JSON.stringify(this.initialState) !== JSON.stringify(this.loginForm.value);
+      this.formValid.emit(this.loginForm.valid);
+      this.formChanged.emit(isFormDirty);
+      if (this.loginForm.valid) {
+        this.formDataSubmit.emit(this.loginForm.value);
+      }
     });
   }
 
@@ -51,9 +64,4 @@ export class LoginFormComponent implements OnInit{
     const control = this.loginForm.controls[controlName];
     return control.hasError(errorName);
   }
-
-  submitFormData(){
-    this.formDataSubmit.emit(this.loginForm.value);
-  }
-
 }

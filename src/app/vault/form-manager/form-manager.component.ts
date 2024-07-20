@@ -47,8 +47,6 @@ export class FormManagerComponent {
     this.isFormValid = isValid;
   }
 
-  handleFormData(formData: any) {}
-
   async getMasterKey() {
     const email = "test@test.com";
     const password = "testing_purpose";

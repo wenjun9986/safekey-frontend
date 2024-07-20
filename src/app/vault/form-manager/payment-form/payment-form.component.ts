@@ -1,6 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
-
 @Component({
   selector: 'app-payment-form',
   templateUrl: './payment-form.component.html',
@@ -10,10 +9,13 @@ export class PaymentFormComponent implements OnInit{
 
   @Output() formDataSubmit: EventEmitter<any> = new EventEmitter<any>();
   @Output() formValid: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() formChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() formData: any;
 
   paymentForm: FormGroup;
   showCardNumber = false;
   showSecurityCode = false;
+  initialState: any;
 
   constructor(private fb:FormBuilder){
     this.paymentForm = this.fb.group({
@@ -28,8 +30,18 @@ export class PaymentFormComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.paymentForm.statusChanges.subscribe(status => {
-      this.formValid.emit(status === 'VALID');
+    if (this.formData) {
+      this.paymentForm.patchValue(this.formData);
+      this.initialState = this.paymentForm.value; // Capture initial state
+    }
+
+    this.paymentForm.valueChanges.subscribe(() => {
+      const isFormDirty = JSON.stringify(this.initialState) !== JSON.stringify(this.paymentForm.value);
+      this.formValid.emit(this.paymentForm.valid);
+      this.formChanged.emit(isFormDirty);
+      if (this.paymentForm.valid) {
+        this.formDataSubmit.emit(this.paymentForm.value);
+      }
     });
   }
 
@@ -77,10 +89,6 @@ export class PaymentFormComponent implements OnInit{
       }
     }
     return null;
-  }
-
-  submitFormData(){
-    this.formDataSubmit.emit(this.paymentForm.value);
   }
 
   /*chosenYearHandler(normalizedYear: Date) {

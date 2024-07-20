@@ -1,6 +1,6 @@
 <mat-card>
     <mat-card-content>
-        <div class="card-info" (click)="copyToClipboard('abc')">
+        <div class="card-info" (click)="openDialog()">
             <img [src]="getCardIcons(this.decryptedData.cardType)" alt="{{ this.decryptedData.cardType }}" class="card-icon">
             <div>
                 <div>{{this.decryptedData.title}}</div>

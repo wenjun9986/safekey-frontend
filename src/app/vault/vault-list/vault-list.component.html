@@ -8,7 +8,7 @@
             <p>No Items Found.</p>
             <p>Proceed to add your first vault item</p>
         </div>
-        <div *ngIf="!isLoading && hasData" class="vault-accordion p-2">
+        <div *ngIf="!isLoading && hasData" class="vault-accordion p-2 mt-2">
             <mat-accordion multi="true">
                 <mat-expansion-panel *ngFor="let category of categories" class="category-panel">
                     <mat-expansion-panel-header>

@@ -43,17 +43,21 @@ export class VaultService {
     return this.apiService.get(path, params);
   }
 
-  insertVaultItem(userId: string, type: string, encryptedDate: string): any {
+  insertVaultItem(userId: string, type: string, encryptedData: string): any {
     const path = `${this.api_url}/vault/createItem`;
     const formData = new FormData();
     formData.append('user_id', userId);
     formData.append('type', type);
-    formData.append('encrypted_data', encryptedDate);
+    formData.append('encrypted_data', encryptedData);
     return this.apiService.post(path, formData);
   }
 
-  updateVaultItem(data: any): any {
+  updateVaultItem(itemId: string, userId: string, encryptedData: string): any {
     const path = `${this.api_url}/vault/updateItem`;
-    return this.apiService.put(path, data);
+    const formData = new FormData();
+    formData.append('item_id', itemId);
+    formData.append('user_id', userId);
+    formData.append('encrypted_data', encryptedData);
+    return this.apiService.post(path, formData);
   }
 }

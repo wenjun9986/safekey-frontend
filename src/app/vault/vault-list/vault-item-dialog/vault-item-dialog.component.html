@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Vault Details</h2>
+<mat-dialog-content>
+    <app-login-form *ngIf="data.type === 'login'" [formData]="data.item" (formDataSubmit)="handleFormDataSubmit($event)" (formChanged)="handleFormChanged($event)" (formValid)="handleFormValidity($event)"></app-login-form>
+    <app-payment-form *ngIf="data.type === 'payment_method'" [formData]="data.item" (formDataSubmit)="handleFormDataSubmit($event)" (formChanged)="handleFormChanged($event)" (formValid)="handleFormValidity($event)"></app-payment-form>
+    <app-note-form *ngIf="data.type === 'note'" [formData]="data.item" (formDataSubmit)="handleFormDataSubmit($event)" (formChanged)="handleFormChanged($event)" (formValid)="handleFormValidity($event)"></app-note-form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" (click)="closeDialog()"> Close </button>
+    <button mat-raised-button color="primary" *ngIf="showSaveButton" (click)="submitForm()" [disabled]="!isFormValid"> Update Vault Item </button>
+</mat-dialog-actions>

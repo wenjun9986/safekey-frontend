@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -10,8 +10,11 @@ export class NoteFormComponent implements OnInit{
 
     @Output() formDataSubmit: EventEmitter<any> = new EventEmitter<any>();
     @Output() formValid: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() formChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Input() formData: any;
 
     noteForm: FormGroup;
+    initialState: any;
 
     constructor(
         private fb: FormBuilder,
@@ -22,9 +25,19 @@ export class NoteFormComponent implements OnInit{
         });
     }
 
-    ngOnInit(): void {
-        this.noteForm.statusChanges.subscribe(status => {
-            this.formValid.emit(status === 'VALID');
+    ngOnInit() {
+        if (this.formData) {
+            this.noteForm.patchValue(this.formData);
+            this.initialState = this.noteForm.value; // Capture initial state
+        }
+
+        this.noteForm.valueChanges.subscribe(() => {
+            const isFormDirty = JSON.stringify(this.initialState) !== JSON.stringify(this.noteForm.value);
+            this.formValid.emit(this.noteForm.valid);
+            this.formChanged.emit(isFormDirty);
+            if (this.noteForm.valid) {
+                this.formDataSubmit.emit(this.noteForm.value);
+            }
         });
     }
 
@@ -32,9 +45,4 @@ export class NoteFormComponent implements OnInit{
         const control = this.noteForm.controls[controlName];
         return control.hasError(errorName);
     }
-
-    submitFormData(){
-        this.formDataSubmit.emit(this.noteForm.value);
-    }
-
 }

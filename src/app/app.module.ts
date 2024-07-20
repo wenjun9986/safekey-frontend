@@ -18,6 +18,7 @@ import { NoteFormComponent } from './vault/form-manager/note-form/note-form.comp
 import { LoginVaultComponent } from './vault/vault-list/login-vault/login-vault.component';
 import { PaymentVaultComponent } from './vault/vault-list/payment-vault/payment-vault.component';
 import { NoteVaultComponent } from './vault/vault-list/note-vault/note-vault.component';
+import { VaultItemDialogComponent } from './vault/vault-list/vault-item-dialog/vault-item-dialog.component';
 
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgOptimizedImage} from "@angular/common";
@@ -38,6 +39,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatDialogModule} from "@angular/material/dialog";
 
 import {PasswordPassphraseService} from "./services/password-passphrase.service";
 import {PasswordStrengthService} from "./services/password-strength.service";
@@ -62,8 +64,9 @@ import {MatExpansionModule} from "@angular/material/expansion";
     LoginVaultComponent,
     PaymentVaultComponent,
     NoteVaultComponent,
+    VaultItemDialogComponent,
   ],
-    imports: [
+  imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -87,6 +90,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatTooltipModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
   ],
   providers: [PasswordPassphraseService, PasswordStrengthService, PopupMessageService, Randomizer],
   bootstrap: [AppComponent]

@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {VaultService} from "../../vault.service";
 import {VaultEncryptionService} from "../../services/vault-encryption.service";
 import {MasterKeyService} from "../../services/master-key.service";
+import {VaultUpdateService} from "../../services/vault-update.service";
+import {Subscription} from "rxjs";
 
 type VaultType = 'login' | 'payment_method' | 'note';
 
@@ -32,20 +34,30 @@ const ICONS: { [key in VaultType]: string } = {
   templateUrl: './vault-list.component.html',
   styleUrls: ['./vault-list.component.scss']
 })
-export class VaultListComponent implements OnInit{
+export class VaultListComponent implements OnInit, OnDestroy{
     categories: { icon: any; type: string; items: VaultItem[] }[] = [];
     isLoading: boolean = true;
     hasData: boolean = true;
+    private updateSubscription: Subscription = new Subscription();
+
 
     constructor(
         private vaultService: VaultService,
         private vaultEncryptionService: VaultEncryptionService,
         private masterKey: MasterKeyService,
+        private vaultUpdateService: VaultUpdateService
     ) {
     }
 
     ngOnInit(): void {
         this.fetchVaultData();
+        this.updateSubscription = this.vaultUpdateService.update$.subscribe(() => {
+          this.fetchVaultData();
+        });
+    }
+
+    ngOnDestroy(): void {
+      this.updateSubscription.unsubscribe();
     }
 
     fetchVaultData(){
@@ -76,9 +88,9 @@ export class VaultListComponent implements OnInit{
     async organizeItems(data: any) {
         const vaultItems: VaultItem[] = Array.isArray(data) ? data : [];
         const types: VaultType[] = ['login', 'payment_method', 'note'];
+        const masterKey: Uint8Array = await this.getMasterKey();
 
         const decryptPromises = vaultItems.map(async item => {
-            const masterKey: Uint8Array = await this.getMasterKey();
             const decryptedContent = await this.vaultEncryptionService.decryptVault(item.encrypted_data, masterKey);
             return {...item, decrypted_data: JSON.parse(decryptedContent)};
         });
@@ -93,21 +105,7 @@ export class VaultListComponent implements OnInit{
         this.isLoading = false;
     }
 
-    /*async organizeItems(data: any) {
-        const masterKey: Uint8Array = await this.getMasterKey();
-        for (let item of data){
-            item.decrypted_data = JSON.parse(await this.vaultEncryptionService.decryptVault(item.encrypted_data, masterKey));
-        }
-        const types: VaultType[] = ['login', 'payment_method', 'note'];
-        this.categories = types.map((type: VaultType) => ({
-            type,
-            icons: ICONS[type],
-            items: data.filter(item => item.type === type && item.decrypted_data)
-        })).filter(category => category.items.length > 0);
-    }*/
-
     formatTitle(type: string): string {
-        // Replace underscores with spaces and convert each word to title case
         return type.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
     }
 }

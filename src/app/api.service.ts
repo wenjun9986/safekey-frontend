@@ -43,8 +43,8 @@ export class ApiService {
     );
   }
 
-  put(path: string, body: any, options = {}): Observable<any> {
-    return this.httpClient.put(path, body, options).pipe(
+  put(path: string, body: any): Observable<any> {
+    return this.httpClient.put(path, body).pipe(
       //this.retryHandler(),
       catchError(this.handleError)
     );
