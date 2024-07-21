@@ -1,9 +1,9 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {VaultEncryptionService} from "../../../services/vault-encryption.service";
-import {MasterKeyService} from "../../../services/master-key.service";
 import {VaultService} from "../../../vault.service";
 import {VaultUpdateService} from "../../../services/vault-update.service";
+import {CryptoFunctionService} from "../../../services/crypto-function.service";
 
 
 @Component({
@@ -19,8 +19,8 @@ export class VaultItemDialogComponent{
 
     constructor(
       private vaultService: VaultService,
+      private cryptoService: CryptoFunctionService,
       private vaultEncryptionService: VaultEncryptionService,
-      private masterKey: MasterKeyService,
       private vaultUpdateService: VaultUpdateService,
       public dialogRef: MatDialogRef<VaultItemDialogComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any,
@@ -39,19 +39,13 @@ export class VaultItemDialogComponent{
         this.updatedData = formData;
     }
 
-    async getMasterKey() {
-        const email = "test@test.com";
-        const password = "testing_purpose";
-        const kdfConfig = {iterations: 600000, keyLength: 256};
-        return await this.masterKey.generateMasterKey(email, password, kdfConfig);
-    }
-
     async submitForm() {
       const serializedData = JSON.stringify(this.updatedData);
       try {
-        const masterKey = await this.getMasterKey();
-        const encryptedData = await this.vaultEncryptionService.encryptVault(serializedData, masterKey);
-        this.vaultService.updateVaultItem(this.data.item_id, "1003", encryptedData).subscribe(
+        const { masterKey, userId } = await chrome.storage.local.get(['masterKey', 'userId']);
+        const masterKeyArray = new Uint8Array(this.cryptoService.base64ToArrayBuffer(masterKey));
+        const encryptedData = await this.vaultEncryptionService.encryptVault(serializedData, masterKeyArray);
+        this.vaultService.updateVaultItem(this.data.item_id, userId , encryptedData).subscribe(
           (response: any) => {
             if (response && response.data) {
               this.vaultUpdateService.notifyVaultUpdate();

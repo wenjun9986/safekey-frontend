@@ -14,7 +14,7 @@
         <button mat-raised-button color = "primary" type="submit" class="mt-2" [disabled]="loginForm.invalid">Log In with Master Password</button>
     </form>
     <div class="small p-2">
-        <p class="no-margin">Logging in as {{loggedEmail}}</p>
+        <p class="no-margin">Logging in as {{this.loginForm.value.email}}</p>
         <a routerLink="/home">Not You?</a>
     </div>
 </div>

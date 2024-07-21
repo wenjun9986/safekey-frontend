@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VaultManagerComponent } from './form-manager.component';
+import { FormManagerComponent } from './form-manager.component';
 
 describe('VaultManagerComponent', () => {
-  let component: VaultManagerComponent;
-  let fixture: ComponentFixture<VaultManagerComponent>;
+  let component: FormManagerComponent;
+  let fixture: ComponentFixture<FormManagerComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [VaultManagerComponent]
+      declarations: [FormManagerComponent]
     });
-    fixture = TestBed.createComponent(VaultManagerComponent);
+    fixture = TestBed.createComponent(FormManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

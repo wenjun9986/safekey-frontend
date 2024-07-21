@@ -9,13 +9,15 @@ import { GeneratorComponent } from "./vault/generator/generator.component";
 import { SettingsComponent } from './vault/settings/settings.component';
 import { VaultListComponent } from "./vault/vault-list/vault-list.component";
 import { FormManagerComponent } from "./vault/form-manager/form-manager.component";
+import { RedirectGuard } from "./guards/redirect.guard";
+import { AuthGuard } from "./guards/auth.guard";
+
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/tabs/vault-list',
-    /*redirectTo: '/home',*/
-    pathMatch: 'full', // Ensure that this route is matched when the entire URL is empty
+    children: [],
+    canActivate: [RedirectGuard],
   },
   {
     path: 'home',
@@ -32,6 +34,7 @@ const routes: Routes = [
   {
     path: 'tabs',
     component: TabsComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',

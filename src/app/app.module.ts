@@ -40,12 +40,12 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 import {PasswordPassphraseService} from "./services/password-passphrase.service";
 import {PasswordStrengthService} from "./services/password-strength.service";
 import {PopupMessageService} from "./services/popup-message.service";
 import {Randomizer} from "./abstractions/randomizer";
-import {MatExpansionModule} from "@angular/material/expansion";
 
 @NgModule({
   declarations: [

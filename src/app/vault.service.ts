@@ -11,6 +11,13 @@ export class VaultService {
     private apiService: ApiService,
   ) { }
 
+  validateJWTToken(token: string): any {
+    const path = `${this.api_url}/auth/validateToken`;
+    const formData = new FormData();
+    formData.append('token', token);
+    return this.apiService.post(path, formData);
+  }
+
   findUser(email: any): any {
     const path = `${this.api_url}/user/find`;
     const params: any = {
@@ -19,12 +26,12 @@ export class VaultService {
     return this.apiService.get(path, params);
   }
 
-  loginUser(email: string): any {
+  loginUser(email: string, master_password_hash: string): any {
     const path = `${this.api_url}/user/login`;
-    const params: any ={
-      email: email,
-    }
-    return this.apiService.get(path, params);
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('master_password_hash', master_password_hash);
+    return this.apiService.post(path, formData);
   }
 
   registerUser(email: string, masterPasswordHash: string): any {

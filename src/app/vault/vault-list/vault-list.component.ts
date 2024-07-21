@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {VaultService} from "../../vault.service";
 import {VaultEncryptionService} from "../../services/vault-encryption.service";
-import {MasterKeyService} from "../../services/master-key.service";
 import {VaultUpdateService} from "../../services/vault-update.service";
 import {Subscription} from "rxjs";
+import {CryptoFunctionService} from "../../services/crypto-function.service";
 
 type VaultType = 'login' | 'payment_method' | 'note';
 
@@ -38,60 +38,60 @@ export class VaultListComponent implements OnInit, OnDestroy{
     categories: { icon: any; type: string; items: VaultItem[] }[] = [];
     isLoading: boolean = true;
     hasData: boolean = true;
+    masterKey: Uint8Array = new Uint8Array();
+    userId: string = '';
     private updateSubscription: Subscription = new Subscription();
 
 
     constructor(
         private vaultService: VaultService,
+        private cryptoService: CryptoFunctionService,
         private vaultEncryptionService: VaultEncryptionService,
-        private masterKey: MasterKeyService,
         private vaultUpdateService: VaultUpdateService
     ) {
     }
 
-    ngOnInit(): void {
+    async ngOnInit() {
+      await this.initializeData();
+      this.fetchVaultData();
+      this.updateSubscription = this.vaultUpdateService.update$.subscribe(() => {
         this.fetchVaultData();
-        this.updateSubscription = this.vaultUpdateService.update$.subscribe(() => {
-          this.fetchVaultData();
-        });
+      });
     }
 
     ngOnDestroy(): void {
       this.updateSubscription.unsubscribe();
     }
 
-    fetchVaultData(){
-        this.isLoading = true;
-        this.vaultService.getVaultData("1003").subscribe(
-            (response: any) => {
-                if (response && Array.isArray(response.data)) {
-                    this.organizeItems(response.data);
-                } else {
-                    this.isLoading = false;
-                    this.hasData = false;
-                }
-            },
-            (error: any) => {
-                this.hasData = false;
-                this.isLoading = false;
-            }
-        )
+    async initializeData() {
+      const {masterKey, userId} = await chrome.storage.local.get(['masterKey', 'userId']);
+      this.masterKey = new Uint8Array(this.cryptoService.base64ToArrayBuffer(masterKey));
+      this.userId = userId;
     }
 
-    async getMasterKey() {
-        const email = "test@test.com";
-        const password = "testing_purpose";
-        const kdfConfig = {iterations: 600000, keyLength: 256};
-        return await this.masterKey.generateMasterKey(email, password, kdfConfig);
+    fetchVaultData(){
+      this.isLoading = true;
+      this.vaultService.getVaultData(this.userId).subscribe(
+        (response: any) => {
+          if (response && Array.isArray(response.data)) {
+            this.organizeItems(response.data);
+          } else {
+            this.isLoading = false;
+            this.hasData = false;
+          }
+        },
+        (error: any) => {
+          this.hasData = false;
+          this.isLoading = false;
+        }
+      )
     }
 
     async organizeItems(data: any) {
         const vaultItems: VaultItem[] = Array.isArray(data) ? data : [];
         const types: VaultType[] = ['login', 'payment_method', 'note'];
-        const masterKey: Uint8Array = await this.getMasterKey();
-
         const decryptPromises = vaultItems.map(async item => {
-            const decryptedContent = await this.vaultEncryptionService.decryptVault(item.encrypted_data, masterKey);
+            const decryptedContent = await this.vaultEncryptionService.decryptVault(item.encrypted_data, this.masterKey);
             return {...item, decrypted_data: JSON.parse(decryptedContent)};
         });
 
