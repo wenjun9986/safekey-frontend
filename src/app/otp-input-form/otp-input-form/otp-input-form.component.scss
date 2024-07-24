@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input {
+  display: flex;
+  width: 28px;
+  border: none;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.5);
+  margin: 5px 10px;
+  text-align: center;
+  font-size: 28px;
+}
+
+.input:focus {
+  border-bottom: 3px solid #3F51B5;
+  outline: none;
+}

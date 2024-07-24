@@ -1,0 +1,23 @@
+<mat-vertical-stepper [linear]="true" #stepper="matVerticalStepper" animationDuration="600">
+    <mat-step>
+        <ng-template matStepLabel>Scan the QR-Code</ng-template>
+        <div>
+            <qrcode [qrdata]="this.qrCodeUrl" [width]="250"></qrcode>
+            <p>Setup Key: {{this.secret}}</p>
+        </div>
+    </mat-step>
+    <mat-step [completed]="isOTPVerified">
+        <ng-template matStepLabel>Input the OTP Code</ng-template>
+        <div>
+            <p>Kindly input the OTP Code from your Google Authenticator app</p>
+            <app-otp-input-form (otpComplete)="verifyOtp($event)"></app-otp-input-form>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p class="mb-3">Your vault has been secured with 2FA</p>
+    </mat-step>
+</mat-vertical-stepper>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

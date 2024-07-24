@@ -1,0 +1,12 @@
+<div class="container" [formGroup]="otpForm">
+    <div *ngFor="let i of otpControlKeys; let idx = index" class="inputs">
+        <input class="input"
+               [formControlName]="i"
+               [id]="'input-' + i"
+               (keyup)="onKeyUp($event, idx)"
+               (input)="onInput($event.target, idx)"
+               maxlength="1"
+               inputmode="numeric">
+    </div>
+</div>
+
