@@ -18,6 +18,25 @@ export class VaultService {
     return this.apiService.post(path, formData);
   }
 
+  generate2FASecret(email: string): any {
+    const path = `${this.api_url}/auth/generate2FASecret`;
+    const params: any = {
+      email: email,
+    };
+    return this.apiService.get(path, params);
+  }
+
+  enable2FA(userId: string, otp: string, secret: string): any {
+    const path = `${this.api_url}/auth/enable2FA`;
+    const formData = new FormData();
+    formData.append('user_id', userId);
+    formData.append('otp', otp);
+    formData.append('secret', secret);
+    return this.apiService.post(path, formData);
+  }
+
+
+
   findUser(email: any): any {
     const path = `${this.api_url}/user/find`;
     const params: any = {

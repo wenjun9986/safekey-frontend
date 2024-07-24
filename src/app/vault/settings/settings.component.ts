@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {EnableTwoFactorComponent} from "./enable-two-factor/enable-two-factor.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-settings',
@@ -8,11 +10,13 @@ import {Router} from "@angular/router";
 })
 export class SettingsComponent implements OnInit{
 
+  userId: string = '';
   email: string = '';
   initial: string = '';
 
   constructor(
     private router: Router,
+    private dialog: MatDialog
   ) { }
 
   async ngOnInit() {
@@ -20,9 +24,23 @@ export class SettingsComponent implements OnInit{
   }
 
   async initializeEmail() {
-    const {email} = await chrome.storage.local.get(['email']);
+    const {email, userId} = await chrome.storage.local.get(['email', 'userId']);
+    this.userId = userId;
     this.email = email;
     this.initial = email.charAt(0).toUpperCase();
+  }
+
+  openDialog(){
+    const dialogRef = this.dialog.open(EnableTwoFactorComponent,{
+      data: {user_id: this.userId, email: this.email},
+      /*disableClose: true,*/
+      width: '350px',
+      maxWidth: '100vw'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("asd");
+    });
   }
 
 

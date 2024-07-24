@@ -11,10 +11,8 @@
       <mat-card-content>
           <mat-card-title>Security Setting</mat-card-title>
           <mat-card-subtitle>Two Factor Authentication</mat-card-subtitle>
+          <button mat-raised-button color="primary" (click)="openDialog()">Enable</button>
 
-<!--
-          <qrcode qrdata="otpauth://totp/SafeKey:test%40test.com?secret=NNLWKISJPFGWE3BB&issuer=SafeKey&algorithm=SHA1&digits=6&period=30" [width]="200"></qrcode>
--->
           <mat-card-subtitle>Vault Timeout</mat-card-subtitle>
 
 

@@ -19,13 +19,15 @@ import { LoginVaultComponent } from './vault/vault-list/login-vault/login-vault.
 import { PaymentVaultComponent } from './vault/vault-list/payment-vault/payment-vault.component';
 import { NoteVaultComponent } from './vault/vault-list/note-vault/note-vault.component';
 import { VaultItemDialogComponent } from './vault/vault-list/vault-item-dialog/vault-item-dialog.component';
+import { EnableTwoFactorComponent } from './vault/settings/enable-two-factor/enable-two-factor.component';
+import { OtpInputFormComponent } from './otp-input-form/otp-input-form/otp-input-form.component';
 
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgOptimizedImage} from "@angular/common";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {QrCodeModule} from "ng-qrcode";
+import {QRCodeModule} from "angularx-qrcode";
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from "@angular/material/icon";
 import {MatTabsModule} from "@angular/material/tabs";
@@ -47,7 +49,7 @@ import {PasswordPassphraseService} from "./services/password-passphrase.service"
 import {PasswordStrengthService} from "./services/password-strength.service";
 import {PopupMessageService} from "./services/popup-message.service";
 import {Randomizer} from "./abstractions/randomizer";
-
+import {MatStepperModule} from "@angular/material/stepper";
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +68,8 @@ import {Randomizer} from "./abstractions/randomizer";
     PaymentVaultComponent,
     NoteVaultComponent,
     VaultItemDialogComponent,
+    EnableTwoFactorComponent,
+    OtpInputFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,7 +78,7 @@ import {Randomizer} from "./abstractions/randomizer";
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NgOptimizedImage,
-    QrCodeModule,
+    QRCodeModule,
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
@@ -93,6 +97,7 @@ import {Randomizer} from "./abstractions/randomizer";
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatStepperModule,
   ],
   providers: [PasswordPassphraseService, PasswordStrengthService, PopupMessageService, Randomizer],
   bootstrap: [AppComponent]
