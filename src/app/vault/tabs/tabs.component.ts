@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
 })
 export class TabsComponent {
   currentHeader = 'Vault';
-  //TODO: change based the behaviour later
 
   navButtons = [
     {label: 'Add Item', path: '/tabs/form-manager', header: 'Add Items', iconKey: 'add_circle', iconKeyActive: 'add_circle'},

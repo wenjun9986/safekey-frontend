@@ -1,1 +1,26 @@
-<p>settings works!</p>
+<div class="w-100">
+  <main tabindex="-1">
+    <div class="user-card">
+        <div class="user-avatar">{{this.initial}}</div>
+        <div class="email-details">
+            <div>{{this.email}}</div>
+            <div class="user-details">Active</div>
+        </div>
+    </div>
+  <mat-card>
+      <mat-card-content>
+          <mat-card-title>Security Setting</mat-card-title>
+          <mat-card-subtitle>Two Factor Authentication</mat-card-subtitle>
+
+<!--
+          <qrcode qrdata="otpauth://totp/SafeKey:test%40test.com?secret=NNLWKISJPFGWE3BB&issuer=SafeKey&algorithm=SHA1&digits=6&period=30" [width]="200"></qrcode>
+-->
+          <mat-card-subtitle>Vault Timeout</mat-card-subtitle>
+
+
+      </mat-card-content>
+  </mat-card>
+    <button mat-fab extended color="primary" class="button" (click)="lock()"> <mat-icon>lock</mat-icon> Lock Now </button>
+    <button mat-fab extended color="primary" class="button" (click)="logout()"> <mat-icon>logout</mat-icon> Log Out </button>
+  </main>
+</div>
