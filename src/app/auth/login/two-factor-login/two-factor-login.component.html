@@ -1,0 +1,9 @@
+<mat-dialog-content>
+    <p>Enter the 6 digit Verification Code from your authenticator app</p>
+    <div class="m-3">
+        <app-otp-input-form (otpComplete)="verifyOtp($event)"></app-otp-input-form>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="closeDialog()">Cancel</button>
+</mat-dialog-actions>

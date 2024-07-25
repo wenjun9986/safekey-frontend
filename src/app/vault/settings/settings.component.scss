@@ -32,18 +32,18 @@
   }
 }
 
-mat-card{
-  border:1px solid #F06292;
-  margin: 10px;
-  box-shadow: none;
-  border-radius: 10px;
-
-  mat-card-content {
-    padding: 10px 10px 0;
+.settings .setting-panel {
+  .mat-expansion-panel-header {
+    padding: 0 16px;
+  }
+  .setting-icon {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  .setting-title {
+    font-size: 16px;
   }
 }
-
-
 
 .button {
   width: 95%;

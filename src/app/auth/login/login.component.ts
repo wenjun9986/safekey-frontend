@@ -5,6 +5,8 @@ import {MasterKeyService} from "../../services/master-key.service";
 import {VaultService} from "../../vault.service";
 import {PopupMessageService} from "../../services/popup-message.service";
 import {CryptoFunctionService} from "../../services/crypto-function.service";
+import {TwoFactorLoginComponent} from "./two-factor-login/two-factor-login.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,8 @@ export class LoginComponent{
       private popupMessageService: PopupMessageService,
       private masterKeyService: MasterKeyService,
       private vaultService: VaultService,
-      private router: Router
+      private router: Router,
+      private dialog: MatDialog
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -68,13 +71,32 @@ export class LoginComponent{
     const localHash = await this.generateMasterKeyHash(masterKey);
     this.vaultService.loginUser(this.loginForm.value.email, localHash).subscribe(
       (response: any) => {
-        chrome.storage.local.set({
-          'JWTToken': response.data.JWTToken,
-          'userId': response.data.user_id,
-          'email': this.loginForm.value.email,
-          'masterKey': this.cryptoService.arrayBufferToBase64(masterKey),
-        })
-        this.router.navigate(['/tabs/vault-list']);
+        if (response.data.message === '2FA Enabled') {
+          const dialogRef = this.dialog.open(TwoFactorLoginComponent, {
+            data: {user_id: response.data.user_id, email: this.loginForm.value.email},
+            width: '350px',
+            maxWidth: '100vw'
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+              chrome.storage.local.set({
+                'JWTToken': result.data.JWTToken,
+                'userId': result.data.user_id,
+                'email': this.loginForm.value.email,
+                'masterKey': this.cryptoService.arrayBufferToBase64(masterKey),
+              })
+              this.router.navigate(['/tabs/vault-list']);
+            }
+          });
+        } else {
+            chrome.storage.local.set({
+                'JWTToken': response.data.JWTToken,
+                'userId': response.data.user_id,
+                'email': this.loginForm.value.email,
+                'masterKey': this.cryptoService.arrayBufferToBase64(masterKey),
+            })
+            this.router.navigate(['/tabs/vault-list']);
+        }
       }, (error: any) => {
           this.popupMessageService.popupMsg("Problems occurred while attempting to log in.");
       }

@@ -1,0 +1,12 @@
+<h3 mat-dialog-title> 2FA Setting </h3>
+<div class="center-content">
+    <div *ngIf="qrCodeUrl">
+        <qrcode [qrdata]="this.qrCodeUrl" [width]="300"></qrcode>
+        <p>Setup Key: {{this.secret}}</p>
+    </div>
+    <button mat-raised-button color="primary" class="button" (click)="disable2FA()"> Disable 2FA </button>
+</div>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
+</mat-dialog-actions>
+

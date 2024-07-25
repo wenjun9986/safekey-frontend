@@ -1,7 +1,7 @@
 <mat-vertical-stepper [linear]="true" #stepper="matVerticalStepper" animationDuration="600">
     <mat-step>
         <ng-template matStepLabel>Scan the QR-Code</ng-template>
-        <div>
+        <div *ngIf="qrCodeUrl">
             <qrcode [qrdata]="this.qrCodeUrl" [width]="250"></qrcode>
             <p>Setup Key: {{this.secret}}</p>
         </div>

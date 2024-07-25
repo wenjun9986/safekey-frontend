@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {VaultService} from "../../vault.service";
 import {PopupMessageService} from "../../services/popup-message.service";
 import {MasterKeyService} from "../../services/master-key.service";
@@ -25,7 +25,7 @@ export class RegisterComponent{
   ) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(12)]],
+      password: ['', [Validators.required, this.strongPasswordValidator]],
       confirmPassword: ['', Validators.required]
     },{
       validator: this.matchPassword('password', 'confirmPassword')
@@ -54,6 +54,19 @@ export class RegisterComponent{
       }
     }
   }
+
+  strongPasswordValidator = (control: FormControl): { [key: string]: any } | null => {
+    const password = control.value;
+      const minLength = password.length>=12;
+      const hasUpperCase = /[A-Z]/.test(password);
+      const hasLowerCase = /[a-z]/.test(password);
+      const hasNumber = /\d/.test(password);
+      const hasSpecialChar = /\W/.test(password);
+      if (!minLength || !hasUpperCase || !hasLowerCase || !hasNumber || !hasSpecialChar) {
+        return {strongPassword: true};
+      }
+    return null
+  };
 
   togglePassword(): void {
     this.showPassword = !this.showPassword;

@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './auth/home/home.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
+import { TwoFactorLoginComponent } from './auth/login/two-factor-login/two-factor-login.component';
 import { TabsComponent } from './vault/tabs/tabs.component';
 import { VaultListComponent } from './vault/vault-list/vault-list.component';
 import { GeneratorComponent } from './vault/generator/generator.component';
@@ -20,7 +21,8 @@ import { PaymentVaultComponent } from './vault/vault-list/payment-vault/payment-
 import { NoteVaultComponent } from './vault/vault-list/note-vault/note-vault.component';
 import { VaultItemDialogComponent } from './vault/vault-list/vault-item-dialog/vault-item-dialog.component';
 import { EnableTwoFactorComponent } from './vault/settings/enable-two-factor/enable-two-factor.component';
-import { OtpInputFormComponent } from './otp-input-form/otp-input-form/otp-input-form.component';
+import { OtpInputFormComponent } from './otp-input-form/otp-input-form/otp-input-form.component'
+import { ManageTwoFactorComponent } from './vault/settings/manage-two-factor/manage-two-factor.component';
 
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgOptimizedImage} from "@angular/common";
@@ -50,6 +52,7 @@ import {PasswordStrengthService} from "./services/password-strength.service";
 import {PopupMessageService} from "./services/popup-message.service";
 import {Randomizer} from "./abstractions/randomizer";
 import {MatStepperModule} from "@angular/material/stepper";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +73,8 @@ import {MatStepperModule} from "@angular/material/stepper";
     VaultItemDialogComponent,
     EnableTwoFactorComponent,
     OtpInputFormComponent,
+    TwoFactorLoginComponent,
+    ManageTwoFactorComponent,
   ],
   imports: [
     BrowserModule,

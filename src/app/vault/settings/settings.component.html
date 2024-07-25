@@ -7,17 +7,47 @@
             <div class="user-details">Active</div>
         </div>
     </div>
-  <mat-card>
-      <mat-card-content>
-          <mat-card-title>Security Setting</mat-card-title>
-          <mat-card-subtitle>Two Factor Authentication</mat-card-subtitle>
-          <button mat-raised-button color="primary" (click)="openDialog()">Enable</button>
-
-          <mat-card-subtitle>Vault Timeout</mat-card-subtitle>
-
-
-      </mat-card-content>
-  </mat-card>
+    <div class="settings p-2 mt-2">
+        <mat-accordion multi>
+            <mat-expansion-panel class="setting-panel">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon class="setting-icon">hourglass_empty</mat-icon>
+                        <span class="setting-title"> Vault Timeout Setting </span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div [formGroup]="timeoutForm">
+                    <mat-form-field class="w-100">
+                        <mat-label> Vault Timeout Setting</mat-label>
+                        <mat-select formControlName ="expirationTime">
+                            <mat-option value="300">5 Minutes</mat-option>
+                            <mat-option value="600">10 Minutes</mat-option>
+                            <mat-option value="900">15 Minutes</mat-option>
+                            <mat-option value="1800">30 Minutes</mat-option>
+                            <mat-option value="3600">1 Hour</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button *ngIf="showSaveButton" mat-raised-button color="primary" class="button" (click)="saveTimeout()"> Update Timeout Setting </button>
+                </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="setting-panel">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon class="setting-icon">security_key</mat-icon>
+                        <span class="setting-title"> Two Factor Authentication (2FA) </span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div *ngIf="this.is2FAEnabled">
+                    <p>Two-Factor Authentication (2FA) is currently <strong style="color:#3F51B5">enabled</strong> for your account.</p>
+                    <button mat-raised-button color="primary" class="button" (click)="openVerifyDialog()"> Manage Your 2FA Setting </button>
+                </div>
+                <div *ngIf="!this.is2FAEnabled">
+                    <p>Two-Factor Authentication (2FA) is currently <strong style="color:#F06292">disabled</strong>. Consider turning it on to boost your account's security.</p>
+                    <button mat-raised-button color="primary" class="button" (click)="openSetupDialog()"> Enable 2FA </button>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
     <button mat-fab extended color="primary" class="button" (click)="lock()"> <mat-icon>lock</mat-icon> Lock Now </button>
     <button mat-fab extended color="primary" class="button" (click)="logout()"> <mat-icon>logout</mat-icon> Log Out </button>
   </main>

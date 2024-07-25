@@ -10,6 +10,7 @@ import {OtpInputFormComponent} from "../../../otp-input-form/otp-input-form/otp-
 })
 
 export class EnableTwoFactorComponent implements OnInit{
+
     @ViewChild('stepper') stepper: any;
     @ViewChild(OtpInputFormComponent) otpInputFormComponent!: OtpInputFormComponent;
     qrCodeUrl: string = '';
@@ -57,6 +58,6 @@ export class EnableTwoFactorComponent implements OnInit{
     }
 
     closeDialog() {
-      this.dialogRef.close();
+      this.dialogRef.close(this.isOTPVerified);
     }
 }

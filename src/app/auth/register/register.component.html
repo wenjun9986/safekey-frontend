@@ -24,9 +24,8 @@
       <mat-error *ngIf="hasError('password', 'required')">
         Password is <strong>required</strong>
       </mat-error>
-      <mat-error *ngIf="hasError('password', 'minlength')">
-        Password must be at least <strong>12 characters long</strong>
-        <!--TODO:// maybe change wording or integrate the password strength-->
+      <mat-error *ngIf="hasError('password', 'strongPassword')">
+        <span matTooltip="Password must be at least 12 characters long, including a combination of letters, special characters, and numbers.">Your current password is <strong>Too Weak</strong>.</span>
       </mat-error>
     </mat-form-field>
     <mat-form-field class="w-100">

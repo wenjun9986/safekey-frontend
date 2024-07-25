@@ -26,6 +26,14 @@ export class VaultService {
     return this.apiService.get(path, params);
   }
 
+  get2FADetails(userId: string): any {
+    const path = `${this.api_url}/auth/get2FADetails`;
+    const params: any = {
+      user_id: userId,
+    };
+    return this.apiService.get(path, params);
+  }
+
   enable2FA(userId: string, otp: string, secret: string): any {
     const path = `${this.api_url}/auth/enable2FA`;
     const formData = new FormData();
@@ -35,7 +43,20 @@ export class VaultService {
     return this.apiService.post(path, formData);
   }
 
+  verify2FA(userId: string, otp: string): any {
+    const path = `${this.api_url}/auth/verify2FA`;
+    const formData = new FormData();
+    formData.append('user_id', userId);
+    formData.append('otp', otp);
+    return this.apiService.post(path, formData);
+  }
 
+  disable2FA(userId: string): any {
+    const path = `${this.api_url}/auth/disable2FA`;
+    const formData = new FormData();
+    formData.append('user_id', userId);
+    return this.apiService.post(path, formData);
+  }
 
   findUser(email: any): any {
     const path = `${this.api_url}/user/find`;
@@ -43,6 +64,22 @@ export class VaultService {
       email: email,
     };
     return this.apiService.get(path, params);
+  }
+
+  getUserConfigs(userId: string): any {
+    const path = `${this.api_url}/user/userConfigs`;
+    const params: any = {
+      user_id: userId,
+    };
+    return this.apiService.get(path, params);
+  }
+
+  updateVaultTimeout(userId: string, expiration: string): any {
+    const path = `${this.api_url}/user/updateVaultTimeout`;
+    const formData = new FormData();
+    formData.append('user_id', userId);
+    formData.append('expiration', expiration);
+    return this.apiService.post(path, formData);
   }
 
   loginUser(email: string, master_password_hash: string): any {
