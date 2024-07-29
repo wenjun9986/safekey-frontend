@@ -90,17 +90,4 @@ export class PaymentFormComponent implements OnInit{
     }
     return null;
   }
-
-  /*chosenYearHandler(normalizedYear: Date) {
-    const ctrlValue = this.paymentForm.value.expirationDate || new Date();
-    ctrlValue.setFullYear(normalizedYear.getFullYear());
-    this.paymentForm.value.expirationDate.setValue(ctrlValue);
-  }
-
-  chosenMonthHandler(normalizedMonth: Date, datepicker: MatDatepicker<Date>) {
-    const ctrlValue = this.paymentForm.value.expirationDate || new Date();
-    ctrlValue.setMonth(normalizedMonth.getMonth());
-    this.paymentForm.value.expirationDate.setValue(ctrlValue);
-    datepicker.close();
-  }*/
 }

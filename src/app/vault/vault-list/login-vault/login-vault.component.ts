@@ -31,7 +31,7 @@ export class LoginVaultComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe(result => {
       if(result && result.status === 'success'){
-        this.popupMessage.popupMsg('Vault Item Updated Successfully.');
+        this.popupMessage.popupMsg('Changes has been updated successfully.');
       } else if (result) {
         this.popupMessage.popupMsg('An unexpected error occurred.');
       }

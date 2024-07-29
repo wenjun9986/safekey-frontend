@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
-import {from, Observable, switchMap, throwError} from 'rxjs';
+import {from, Observable, throwError} from 'rxjs';
 import { catchError} from 'rxjs/operators';
 
 @Injectable({
@@ -8,21 +8,6 @@ import { catchError} from 'rxjs/operators';
 })
 export class ApiService {
   constructor(private httpClient: HttpClient) { }
-
-  private getHeaders(includeToken: boolean = true) {
-    if (!includeToken) {
-      return from (Promise.resolve(new HttpHeaders()))
-    }
-    return from (new Promise<HttpHeaders>((resolve) => {
-      chrome.storage.local.get(['JWTToken'], (result) => {
-        let headers = new HttpHeaders();
-        if (result['JWTToken']) {
-          headers = headers.append('Authorization', `Bearer ${result['JWTToken']}`);
-        }
-        resolve(headers);
-      });
-    }));
-  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -32,17 +17,6 @@ export class ApiService {
       return throwError(() => new Error(errorMessage));
     }
   }
-
-  /*private retryHandler(attempts: number = 3) {
-    return (src: Observable<any>) =>
-      src.pipe(
-        retryWhen(errors => errors.pipe(
-          tap(() => {
-            if (--attempts < 1) throw new Error("Retry limit reached");
-          })
-        ))
-      );
-  }*/
 
   get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
     return this.httpClient.get(path, { params }).pipe(

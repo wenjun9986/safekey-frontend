@@ -123,4 +123,12 @@ export class VaultService {
     formData.append('encrypted_data', encryptedData);
     return this.apiService.post(path, formData);
   }
+
+  deleteVaultItem(itemId: string, userId: string): any {
+    const path = `${this.api_url}/vault/deleteItem`;
+    const formData = new FormData();
+    formData.append('item_id', itemId);
+    formData.append('user_id', userId);
+    return this.apiService.post(path, formData);
+  }
 }

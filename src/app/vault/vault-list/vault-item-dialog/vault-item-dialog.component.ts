@@ -16,6 +16,11 @@ export class VaultItemDialogComponent{
     showSaveButton = false;
     isFormValid = false;
     updatedData: any;
+    buttonText:string = "Delete Vault Item";
+    buttonColor:string = "primary";
+    isDisabled: boolean = false;
+    private countdown: number = 5;
+    private countdownStarted: boolean = false;
 
     constructor(
       private vaultService: VaultService,
@@ -37,6 +42,43 @@ export class VaultItemDialogComponent{
 
     handleFormDataSubmit(formData: any): void {
         this.updatedData = formData;
+    }
+
+    handleClick(): void {
+      if(!this.countdownStarted){
+        this.startCountdown();
+      } else {
+        this.deleteVaultItem();
+      }
+    }
+
+    startCountdown(): void {
+      this.isDisabled = true;
+      this.countdownStarted = true;
+
+      const interval = setInterval(() => {
+        if (this.countdown > 1) {
+          this.buttonText = `Confirm Delete? (${--this.countdown})`;
+        } else {
+          this.buttonText = 'Delete Vault Item';
+          this.isDisabled = false;
+          this.buttonColor = "warn";
+          clearInterval(interval);
+        }
+      }, 1000);
+    }
+
+    async deleteVaultItem(): Promise<void> {
+      const {userId} = await chrome.storage.local.get('userId');
+      this.vaultService.deleteVaultItem(this.data.item_id, userId).subscribe(
+        (response: any) => {
+          if (response && response.data) {
+            this.vaultUpdateService.notifyVaultUpdate();
+            this.dialogRef.close(response);
+          }
+        },(error: any) => {
+          this.dialogRef.close(error);
+        });
     }
 
     async submitForm() {

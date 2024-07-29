@@ -69,7 +69,6 @@ export class FormManagerComponent implements OnInit{
       formData = this.noteFormComponent.noteForm.value;
     }
 
-
     if (formData) {
       const serializedData = JSON.stringify(formData);
       try {
